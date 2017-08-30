@@ -9,7 +9,7 @@ import { GlobalRef } from '../../global-ref';
   styleUrls: ['./style-transfer.component.scss']
 })
 export class StyleTransferComponent implements AfterViewInit {
-  root = 1;
+  root = 0;
 
   constructor(private global: GlobalRef) {
   
