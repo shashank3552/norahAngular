@@ -7,7 +7,7 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="col-md-4">
 
-                        <h2 id="left_anim_title" style="color:#84838c;font-size:15px;text-align:center;padding:5px 0 0 0;">Input 1
+                        <h2 class="col-md-8" id="left_anim_title" style="color:#84838c;font-size:15px;text-align:center;margin-left:25px;">Input 1
                         </h2>
 
                         <div class="row">
@@ -19,15 +19,15 @@
                                     <img src="assets/images/left_icon.png">
                                 </a>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <div class="left_animation_mp43">
 
-                                    <video autoplay loop muted id="left_animation_mp4">
+                                    <video autoplay loop muted id="left_animation_mp4" src="">
                     <source id="left_animation_mp4_src" src="" type="video/mp4"/>
                   </video>
                                     <!--<img src="img/plus_round.png" style="position:absolute;top:5px;left:19px;">-->
                                 </div>
-                                <span id="left_anim_duration"></span>
+                                <h2 style="color:#84838c;font-size:15px;" id="left_anim_duration"></h2>
                             </div>
 
                             <div class="col-md-1">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-4 output-window">
                         <h2 style="color:#84838c;font-size:15px;text-align:center;padding:5px 0 0 0;">Output Window</h2>
-                        <div id="gameContainer2" class="col-md-11">
+                        <div id="gameContainer2" class="col-md-10">
                             <div id="gameContainer" style="height: 250px"></div>
                             <div class="enter-name">
                                 <div class="row">
@@ -58,7 +58,7 @@
                         </div>
 
                     </div>
-                    <h2 id="right_anim_title" style="color:#84838c;font-size:15px;text-align:center;padding:5px 0 0 0;">Input 2
+                    <h2 id="right_anim_title" style="color:#84838c;font-size:15px;text-align:center;margin-right:70px">Input 2
                     </h2>
                     <div class="col-md-4">
                         <div class="row">
@@ -66,20 +66,20 @@
                         </div>
                         <div class="row">
                             <div class="col-md-1">
-                                <a href="javascript:ApplyRightAnim(-1);" class="carousel-control left" style="left: 0px; top: 110px; height: 0px;">
+                                <a href="javascript:ApplyRightAnim(-1);" class="carousel-control left" style="left: 0px; top: 75px; height: 0px;">
                                     <img src="assets/images/left_icon.png">
                                 </a>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <div class="image">
-                                    <video autoplay loop muted id="right_animation_mp4">
+                                    <video style="margin-top:-35px" src=""autoplay loop muted id="right_animation_mp4">
                     <source id="right_animation_mp4_src" src="" type="video/mp4"/>
                   </video>
                                 </div>
-                                <span id="right_anim_duration"></span>
+                                <h2 style="color:#84838c;font-size:15px;" id="right_anim_duration"></h2>
                             </div>
                             <div class="col-md-1">
-                                <a href="javascript:ApplyRightAnim(1);" class="carousel-control right" style="right: 37px; height: 0px; top: 110px;">
+                                <a href="javascript:ApplyRightAnim(1);" class="carousel-control right" style="right: 37px; height: 0px; top: 75px;">
                                     <img src="assets/images/right_icon.png"></a>
                             </div>
                         </div>
@@ -101,13 +101,13 @@
                         <div class="col-md-1">
                             <div class="checkbox">
                                 <label><input type="radio" autocomplete="off" value="" checked="checked" onclick='handleClick(this);'
-                              name="radio" id = "loop">Loop</label>
+                              name="radio" id = "loop" style="height:18px; width:35px; ">Loop</label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="checkbox">
                                 <label><input type="radio" autocomplete="off" value="" onclick='handleClick(this);'
-                              name="radio" id="timestretch">Time stretch</label>
+                              name="radio" style="height:18px; width:35px; " id="timestretch">Time stretch</label>
                             </div>
                         </div>
 
@@ -142,55 +142,55 @@
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Head</label>
                     <div class="range-slider">
-                        <input class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Head">
+                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Head">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Torso</label>
                     <div class="range-slider">
-                        <input class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Trso">
+                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Trso">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Left Arm</label>
                     <div class="range-slider">
-                        <input class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="ArmL">
+                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="ArmL">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Right Arm</label>
                     <div class="range-slider">
-                        <input class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="ArmR">
+                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="ArmR">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Left Leg</label>
                     <div class="range-slider">
-                        <input class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="LegL">
+                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="LegL">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Right Leg</label>
                     <div class="range-slider">
-                        <input class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="LegR">
+                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="LegR">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Fingers</label>
                     <div class="range-slider">
-                        <input class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Fing">
+                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Fing">
                     </div>
                 </div>
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Root</label>
                     <div class="range-slider">
-                        <input [(ngModel)]="root" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Root">
+                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0"  max="100"  name="Root" [(ngModel)]="root" >
                     </div>
                 </div>
             </div>
