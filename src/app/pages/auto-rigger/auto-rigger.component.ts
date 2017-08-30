@@ -57,6 +57,25 @@ export class AutoRiggerComponent implements AfterViewInit {
 
         // Check for the various File API support.
         this.fileApiAvailable = true;
+
+        var socket = io.connect('https://absentiaautorig.com:443');
+                //var socket = io.connect('http://127.0.0.1:8080');
+                socket.on('key', function(data) {
+                    this.key = data.key;
+                    $('#key').val(this.key);
+                });
+                socket.on('image', function(data) {
+                    document.getElementById("loading").style.display = "none";
+                    //var aTag = document.createElement('a');
+                    var aTag = document.getElementById('Download');
+                    //aTag.setAttribute('href','http://127.0.0.1:8080'+data.path);
+                    aTag.setAttribute('href', 'https://absentiaautorig.com:443' + data.path);
+                    aTag.setAttribute('download', '');
+                    aTag.setAttribute('target', '_blank');
+                    aTag.click();
+                });
+
+
       }
 
       webLoader.prototype.initGL = function() {
@@ -378,21 +397,23 @@ export class AutoRiggerComponent implements AfterViewInit {
       app.render();
     };
 
+
     function uploadFiles() {
       // event.stopPropagation(); // Stop stuff happening
       // event.preventDefault(); // Totally stop stuff happening
     //
     //   // START A LOADING SPINNER HERE
-    //   //  document.getElementById("loader").style.display = "";
-      (document.getElementById("uploadForm") as any).submit();
+      document.getElementById("loading").style.display = "block";
+        $('#uploadForm').submit();
     //
     //   // socket.emit('pause');
     //   /*
     //    // Create a formdata object and add the files
-    //    var data = new FormData();
-    //    $.each(document.getElementById('js-upload').files, function(key, value) {
-    //    data.append(key, value);
-    //    });
+//        var data = new FormData();
+//        $.each(document.getElementById('js-upload').files, function(key, value) {
+//        data.append(key, value);
+//        });
+//        console.log('DATA'+data);
     //    $.ajax({
     //    url: '/upload',
     //    type: 'POST',
@@ -428,6 +449,31 @@ export class AutoRiggerComponent implements AfterViewInit {
 
 
     render();
+
+
+     $('#uploadForm').submit(function(e) {
+       var url = $(this).attr("action");
+       var formData = new FormData(($('#uploadForm')[0])as any);
+       $.ajax({
+         url: url,
+         type: 'POST',
+         data: formData,
+         success: function (data) {
+             //alert(data)
+         },
+         cache: false,
+         //contentType: "application/multipart",
+         contentType: false,
+         processData: false
+       });
+
+
+
+        //e.preventDefault();
+        console.log("UPLOADING DAta submit click");
+        return false;
+    });
+
   }
 
 }
