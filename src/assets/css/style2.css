@@ -732,3 +732,94 @@ ul.dropdown-menu::-webkit-scrollbar-thumb {
     text-decoration: none;
 }
 /*--New DNA code--*/
+
+
+.left_animation_mp43 iframe {
+    width: 100%;
+}
+.col-md-8.left_animation_V {
+    margin: 0 0 0 0;
+}
+.m_animation_V{
+    margin: 0 0 0 0;
+}
+.carousel-control.left {
+        position:relative !important;
+        top: 100% !important;
+        background: none !important;
+        right: 0 !important;
+    }
+    .carousel-control.right {
+        position:relative !important;
+        top: 50% !important;
+        background: none !important;
+        right: 0 !important;
+        top: 0 !important;
+    }
+    .carousel-arrow .left-arrow {
+        float: left;
+        position: relative;
+        top: 150px;
+    }
+    .carousel-arrow .right-arrow {
+        float: right;
+        width: auto;
+        margin: 0 39px 0 0;
+        position: relative;
+        top: 150px;
+    }
+    
+    
+
+
+@media (max-width: 767px) {
+    
+    .col-md-8.left_animation_V {
+        margin: 0 0 0 0;
+        width: 100%;
+        float: left;
+    }
+    .col-md-8.left_animation_V video {
+        width: 100% !important;
+    }
+    .carousel-control.left {
+        position:relative !important;
+        top: 100% !important;
+        background: none !important;
+    }
+    .carousel-control.right {
+        position:relative !important;
+        top: 100% !important;
+        background: none !important;
+        right: 0 !important;
+        top: 0 !important;
+    }
+    .left-arrow {
+        float: left;
+        width: auto;
+    }
+    .right-arrow {
+        width: auto;
+        float: right;
+        margin: 0 !important;
+        padding: 0;
+    }
+    .carousel-arrow .left-arrow {
+        top: 0px !important;
+    }
+    .carousel-arrow .right-arrow {
+        top: 0px !important;
+    }
+} 
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .col-md-8.left_animation_V video {
+        width: 100% !important;
+    } 
+    .carousel-arrow .left-arrow {
+        top: 0px !important;
+    }
+    .carousel-arrow .right-arrow {
+        top: 0px !important;
+    }    
+}
