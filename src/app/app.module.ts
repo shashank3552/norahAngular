@@ -14,6 +14,7 @@ import { AuthModule } from './pages/auth/auth.module';
 import { DialogService } from './pages/auth/dialog/dialog.component';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
+import { CharGenComponent } from './pages/char-gen/char-gen.component';
 import { ExportGameComponent } from './pages/export-game/export-game.component';
 import { GameMakerComponent } from './pages/game-maker/game-maker.component';
 import { GunInterpModule } from './pages/gun-gen/gun-gen.module';
@@ -35,6 +36,7 @@ import { GameMakerStartComponent } from './pages/game-maker-start/game-maker-sta
     ExportGameComponent,
     CharMakerComponent,
     DnaCodeComponent,
+    CharGenComponent,
     GameMakerComponent,
     SniperComponent,
     GameMakerStartComponent
