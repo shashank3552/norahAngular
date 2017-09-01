@@ -1,4 +1,4 @@
-<div class="main_wapper wrapper">
+<div class="main_wapper wrapper clearfix an-full-min-height-container">
 <!--Lest Sidebar-->
 
 <div id="Sidebar">
@@ -134,8 +134,42 @@
          <!--Container-->
          <div id="content-wrapper">
             <div class="object-container">
-               <div class="object-container-in">
-                  <div class="object-container-dna">
+               <div class="object-container-in an-display-flex clearfix">
+
+
+                  <div class="head-detail an-head-details-vertical clearfix">
+                    <div class="head-title clearfix">
+                        <h3 *ngIf="processedFiles">{{processedFiles.title}}</h3>
+                        <div class="dropdown pull-right">
+                         <div ngbDropdown class="d-inline-block">
+                           <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i>List</button>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownBasic1">
+                             <li *ngFor="let gen of changeHistory;let i=index" >
+                               <a (click)="switchImage(gen.id)">{{gen.title}} </a>
+                              </li>
+
+                           </ul>
+                         </div>
+                       </div>
+                     </div>
+
+                    <div class="head-detail-block">
+
+                        <div class="full-btn left" style="display:none">
+                           <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
+                        </div>
+                          <div class="scroller-content"*ngIf="processedFiles"  >
+                            <div  *ngFor="let pFile of processedFiles.files;let i=index"    (click)="imageSelected(i)" [class]="pFile.file==selectedImage.file?'block active':'block'">
+                              <img  class="block_img padding-top-40px" src={{pFile.file}}/>
+                            </div>
+                          </div>
+                        <div class="full-btn right" style="display:none">
+                           <a (click)="scrollRight()"><i class="fa fa-caret-right"></i></a>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="object-container-dna an-dna-conatiner">
                      <div class="dna-code-title">
                         <h2>DNA CODE</h2>
                      </div>
@@ -156,40 +190,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="head-detail">
-                    <div class="head-title">
-                        <h3 *ngIf="processedFiles">{{processedFiles.title}}</h3>
-                        <div class="dropdown pull-right">
-                         <div ngbDropdown class="d-inline-block">
-                           <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i>List</button>
-                           <ul class="dropdown-menu" aria-labelledby="dropdownBasic1">
-                             <li *ngFor="let gen of changeHistory;let i=index" >
-                               <a (click)="switchImage(gen.id)">{{gen.title}} </a>
-                              </li>
 
-                           </ul>
-                         </div>
-                       </div>
-                     </div>
-
-                    <div class="head-detail-block">
-
-
-                        <div class="full-btn left" style="display:none">
-                           <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
-                        </div>
-                          <div class="scroller-content"*ngIf="processedFiles"  >
-                            <div  *ngFor="let pFile of processedFiles.files;let i=index"    (click)="imageSelected(i)" [class]="pFile.file==selectedImage.file?'block active':'block'">
-                              <img  class="block_img" src={{pFile.file}}/>
-                            </div>
-                          </div>
-                        <div class="full-btn right" style="display:none">
-                           <a (click)="scrollRight()"><i class="fa fa-caret-right"></i></a>
-                        </div>
-
-
-                    </div>
-                  </div>
                   <div class="shuffle-btn" style="display: none" >
                           <a   id="genButton" (click)="saveRanges()" >Generate</a>
                           <a  (click)="generateImage()" >Merge</a>

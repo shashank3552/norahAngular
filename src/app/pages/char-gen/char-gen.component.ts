@@ -1,73 +1,66 @@
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Component, OnInit,OnChanges,SimpleChange,SimpleChanges,AfterViewInit,HostListener } from '@angular/core';
-import {NgForm, FormBuilder,ReactiveFormsModule,FormGroup} from '@angular/forms';
-import { Http,Headers} from '@angular/http';
-import {Observable,Subscription} from 'rxjs/Rx';
+import { Component, OnInit, OnChanges, SimpleChange, SimpleChanges, AfterViewInit, HostListener } from '@angular/core';
+import { NgForm, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { Http,Headers } from '@angular/http';
+
+import { Observable, Subscription } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+
 import { NouiFormatter } from 'ng2-nouislider';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {SocketService} from './SocketService';
-import {GeneratedImages ,DefaultInputValues} from './data-model';
-import {
-  GlobalRef
-} from '../../global-ref';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SocketService } from './SocketService';
+import { GeneratedImages ,DefaultInputValues } from './data-model';
+import { GlobalRef } from '../../global-ref';
 import {  AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
-
-declare var $:any;
+declare var $: any;
 declare var jQuery: any;
   
 @Component({
   selector: 'app-char-gen',
   templateUrl: './char-gen.component.html',
   styleUrls: ['./char-gen.component.css'],
-  providers:[SocketService]
+  providers: [SocketService]
 })
+
 export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
-  public hideFooter=false;
-  public inputRes:any;
-  public outputRes:any;
-  public sanitizedInput:any;
-  public sanitizedOutput:any;
-  public inputBaseParam:any;
-  public inputHeight:any;
-  public inputWeight:any;
-  public inputAsian:any;
-  public inputAfrican:any;
-  public inputCaucasian:any;
-  public inputSex:any;
-  public outputBaseParam:any;
-  public outputHeight:any;
-  public outputWeight:any;
-  public outputAsian:any;
-  public outputAfrican:any;
-  public outputCaucasian:any;
-  public outputSex:any;
+  public hideFooter = false;
+  public inputRes: any;
+  public outputRes: any;
+  public sanitizedInput: any;
+  public sanitizedOutput: any;
+  public inputBaseParam: any;
+  public inputHeight: any;
+  public inputWeight: any;
+  public inputAsian: any;
+  public inputAfrican: any;
+  public inputCaucasian: any;
+  public inputSex: any;
+  public outputBaseParam: any;
+  public outputHeight: any;
+  public outputWeight: any;
+  public outputAsian: any;
+  public outputAfrican: any;
+  public outputCaucasian: any;
+  public outputSex: any;
   public inputUrl = "assets/data/input.json";
   public OutputUrl = "assets/data/output.json";
-  private FileUploadId:any;
-  private processedFiles:GeneratedImages;
-  private selectedImage:any={file:"assets/images/object-2.png"};
-  private bodyParts:any=[];
-  private selectedBodyPart:any;
-  private changeHistory:Array<GeneratedImages>=[];
-  private bodyPartImage:any="assets/images/human/human.png"
-    
-
-
-  private oldEthinicVal={
-
-       asian:[6, 2],
-   african: [3, 3],
-   caucasian: [1, 5],
-
-  }
-
-
+  private FileUploadId: any;
+  private processedFiles: GeneratedImages;
+  private selectedImage: any = { file:"assets/images/object-2.png" };
+  private bodyParts: any = [];
+  private selectedBodyPart: any;
+  private changeHistory: Array<GeneratedImages> = [];
+  private bodyPartImage: any = "assets/images/human/human.png";
+  private oldEthinicVal = {
+    asian:[6, 2],
+    african: [3, 3],
+    caucasian: [1, 5],
+  };
   public BaseParams: number[] = [0, 10];
   public Height: number[] = [0, 10];
   public Weight: number[] = [0, 10];
@@ -78,307 +71,305 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
   public Caucasian: number[] = [1, 5];
   public Sex: number[] = [0, 10];
   public Age: number[] = [0, 10];
-  private ethnicity:number[]=[4,6];
+  private ethnicity: number[] = [4,6];
   public someMin = 1;
   public someLimit = 50;
-  someValue= [ 2, 10 ];
-  someRange= [ 2, 10 ];
-  someRange2config: any = {
-  behaviour: 'drag',
-  connect: true,
-  margin: 1,
-  limit: 5, // NOTE: overwritten by [limit]="10"
-  range: {
-    min: 0,
-    max: 20
-	  },
-	  pips: {
-	    mode: 'steps',
-	    density: 5
-	  }
-	};
-
-  someKeyboardConfig: any = {
-  behaviour: 'drag',
-  connect: true,
-  start: [0, 9],
-  keyboard: true,  // same as [keyboard]="true"
-  step: 0.1,
-  pageSteps: 10,  // number of page steps, defaults to 10
-  range: {
-    min: 0,
-    max: 10
-  },
-  pips: {
-    mode: 'count',
-    density: 1,
-    values: 1,
-    stepped: true
-  }
-};
-
-ethinicityConfig: any = {
-  behaviour: 'drag',
-  connect: [true,true,true],
-  start:[4,6,],
-  margin: 1,
-  keyboard: true,  // same as [keyboard]="true"
-  step: 0.1,
-  pageSteps: 10,
-  range: {
-    min: 0,
-    max: 10
-	  },
-	  pips: {
-    mode: 'count',
-    density: 1,
-    values: 1,
-    stepped: true
-	  }
+  public someValue = [ 2, 10 ];
+  public someRange = [ 2, 10 ];
+  public someRange2config: any = {
+    behaviour: 'drag',
+    connect: true,
+    margin: 1,
+    limit: 5, // NOTE: overwritten by [limit]="10"
+    range: {
+      min: 0,
+      max: 20
+    },
+    pips: {
+      mode: 'steps',
+      density: 5
+    }
   };
-  toastr:any;
-serverReady:boolean=false;
-private generationCount=0;
+
+  public someKeyboardConfig: any = {
+    behaviour: 'drag',
+    connect: true,
+    start: [0, 9],
+    keyboard: true,  // same as [keyboard]="true"
+    step: 0.1,
+    pageSteps: 10,  // number of page steps, defaults to 10
+    range: {
+      min: 0,
+      max: 10
+     },
+    pips: {
+      mode: 'count',
+      density: 1,
+      values: 1,
+      stepped: true
+    }
+  };
+  public ethinicityConfig: any = {
+    behaviour: 'drag',
+    connect: [true,true,true],
+    start:[4,6,],
+    margin: 1,
+    keyboard: true,  // same as [keyboard]="true"
+    step: 0.1,
+    pageSteps: 10,
+    range: {
+      min: 0,
+      max: 10
+    },
+    pips: {
+      mode: 'count',
+      density: 1,
+      values: 1,
+      stepped: true
+    }
+  };
+  public toastr: any;
+  public serverReady: boolean = false;
+  private generationCount = 0;
   constructor(
     private _http: Http,
     private sanitizer: DomSanitizer,
-    private socket:SocketService,
+    private socket: SocketService,
     private global: GlobalRef,
-    private firebaseAuth:AngularFireAuth,
-    private firebaseDb:AngularFireDatabase
-  )
-  {
+    private firebaseAuth: AngularFireAuth,
+    private firebaseDb: AngularFireDatabase){
     const wnd = this.global.nativeGlobal;
     this.toastr = wnd.toastr;
 
     // this.getInput();
     // this.getOutput();
-  }
-
-  ngOnChanges(changes:SimpleChanges){
-      console.log("change");
 
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    
+    console.log("change");
+
+  }
+  
   ngOnInit() {
-  	$(function() {
-            setTimeout(function(){
-               $(".expand").trigger('click')
-            },500);
-            $(".expand").on( "click", function() {
-              $(this).next().slideToggle(200);
-              var $expand = $(this).find(">:first-child");
+    
+    $(function() {
+      setTimeout(function(){
+        $(".expand").trigger('click');
+      },500);
+      $(".expand").on("click", function() {
+        $(this).next().slideToggle(200);
+        var $expand = $(this).find(">:first-child");
 
-              if($expand.text() == "▼") {
-                $expand.text("►");
-             } else {
-                $expand.text("▼");
-             }
-           });
+        if($expand.text() == "▼") {
+          $expand.text("►");
+        } else {
+          $expand.text("▼");
+        }
       });
+    });
+    
+    this.socket.on('files',(data) => {
+      console.log("Socket Data Received: ");
+      console.log(data);
 
-
-
-      this.socket.on('files',(data)=>{
-
-
-        console.log("Socket Data Received: ");
-        console.log(data);
       //if(data.id==this.FileUploadId){
-       this.showMessag("Files successfully processed ");
 
-        if(this.processedFiles){
-       //this.changeHistory.push(this.processedFiles);
-       this.processedFiles=new GeneratedImages(data.id,data.generationName,"",data.files);
-       this.selectedImage=data.files[0];
-        }else{
+      this.showMessag("Files successfully processed");
+      if(this.processedFiles){
 
-           this.processedFiles=new GeneratedImages(data.id,data.generationName,"",data.files);
-          this.selectedImage=data.files[0];
+        //this.changeHistory.push(this.processedFiles);
 
-       }
-
-       this.changeHistory.push(this.processedFiles);
-
+        this.processedFiles = new GeneratedImages(data.id,data.generationName,"",data.files);
+        this.selectedImage = data.files[0];
+      } else {
+        this.processedFiles = new GeneratedImages(data.id,data.generationName,"",data.files);
+        this.selectedImage = data.files[0];
+      }
+      this.changeHistory.push(this.processedFiles);
 
       //files received
       //load them in the component
 
+    });
 
+    this.socket.on("info",(data) => {
+      console.log("info from server");
+      console.log(data);
+      this.showMessag(data.msg);
+    });
 
-      });
+    this.socket.on('errorInfo',(data) => {
+      console.log("Socket Error Data Received: ");
+      console.log(data);
 
+      //if(data.id==this.FileUploadId)
 
-      this.socket.on("info",(data)=>{
+      this.showMessag(data.msg);
+    });
 
-        console.log("info from server");
-        console.log(data);
+    this.socket.on('bodyPart',(data) => {
+      console.log("Body parts received..");;
+      console.log(data);
+      this.bodyParts = data;
+    });
 
-        this.showMessag(data.msg);
-      });
-      this.socket.on('errorInfo',(data)=>{
+    this.socket.emit("bodyPart",{part:"head"});
+    
+    this.socket.on("exportModel",(data) => {
 
+      //export fbx
 
-        console.log("Socket Error Data Received: ");
-        console.log(data);
-        //if(data.id==this.FileUploadId)
-          this.showMessag(data.msg);
-      });
+      console.log("model received");
+      console.log(data);
+      if(data) {
+        var link = document.createElement("a");
+        link.download = "a";
+        link.href = data.files[0];
+        document.body.appendChild(link);
+        link.click();
+      }
+    });
 
-      this.socket.on('bodyPart',(data)=>{
+    this.socket.on("addToGame",(data) => {
 
-          console.log("Body parts received..");;
-          console.log(data);
+      //export fbx
 
-          this.bodyParts=data;
+      console.log("model received");
+      console.log(data);
+      if(data) {
 
-      });
+        // link.href = data.files[0];
 
-         this.socket.emit("bodyPart",{part:"head"});
-         this.socket.on("exportModel",(data)=>{
-             //export fbx
-            console.log("model received");
-            console.log(data);
+        var request = new XMLHttpRequest();
+        request.open('GET', data.files[0], true);
+        request.responseType = 'blob';
+        request.send(null);
+        this.toastr.info("preparing files to upload");
+        request.onerror = (e: ErrorEvent)=>{
+          this.toastr.error("Failed to process file");
+        };
+        request.onreadystatechange =  ()=> {
+          if (request.readyState === 4 && request.status === 200) {
 
-          if(data)
-            {  var link = document.createElement("a");
-                link.download = "a";
-                link.href = data.files[0];
-                document.body.appendChild(link);
-                link.click();
-             
+            //console.log(request.response);
+
+            var fbxFile = request.response;
+
+            //this.addToGame(request.response);
+
+            var request2 = new XMLHttpRequest();
+            request2.open('GET', this.selectedImage.file, true);
+            request2.responseType = 'blob';
+            request2.send(null);
+            request2.onreadystatechange = () => {
+              if (request2.readyState === 4 && request2.status === 200) {
+                this.addToGame(fbxFile,request2.response);
+              } else {
+
+                //this.toastr.error("failed to add model Image to the library");
+
               }
-        });
-     this.socket.on("addToGame",(data)=>{
-             //export fbx
-            console.log("model received");
-            console.log(data);
+            }
+          } else {
 
-          if(data)
-            {  
-               // link.href = data.files[0];
-                
-               var request = new XMLHttpRequest();
-                request.open('GET', data.files[0], true);
-                request.responseType = 'blob';
-        
-                request.send(null);
-                this.toastr.info("preparing files to upload");
-                request.onerror=(e:ErrorEvent)=>{
-                        this.toastr.error("Failed to process file");
-                };
-                request.onreadystatechange =  ()=> {
-                if (request.readyState === 4 && request.status === 200) {
-                 
-                      //console.log(request.response);
+            //this.toastr.error("failed to add model to the library");
 
-                      var fbxFile=request.response;
-                      //this.addToGame(request.response);
-                     var request2 = new XMLHttpRequest();
-                     request2.open('GET', this.selectedImage.file, true);
-                      request2.responseType = 'blob';
-        
-                        request2.send(null);
-                        request2.onreadystatechange =  ()=> {
-                            if (request2.readyState === 4 && request2.status === 200) {
-                                this.addToGame(fbxFile,request2.response);
-                              }else{
-           //                       this.toastr.error("failed to add model Image to the library");
-                         } 
-              }
-
-              }else{
-                        //this.toastr.error("failed to add model to the library");
-                } 
-                
-    }
-                //this.addToGame(data.files[0]);
-              }
-        });
-
-        this.socket.on("serverReady",(data)=>{
-          setTimeout(()=>{this.serverReady=true;
-          this.showMessag("Server is ready now");
-          },10000);
-
-        });
-
-  }
-
-  switchImage(id:string){
-
-
-    console.log("Switching image to:"+id);
-    console.log(this.processedFiles);
-      this.changeHistory=this.changeHistory.map((gen)=>{
-
-        if(gen.id==id){
-          gen.setActive();
-          this.processedFiles=gen;
-          this.selectedImage=gen.files[0];
-        }else{
-            gen.setActive(false);
-
+          }
         }
-          return gen;
-      });
 
-console.log(this.processedFiles);
+        //this.addToGame(data.files[0]);
+
+      }
+    });
+
+    this.socket.on("serverReady",(data) => {
+      setTimeout(() => {
+        this.serverReady = true;
+        this.showMessag("Server is ready now");
+      },10000);
+    });
 
   }
 
-  generateImage(){
+  switchImage(id: string) {
+
+    console.log("Switching image to:" +id);
+    console.log(this.processedFiles);
+    this.changeHistory=this.changeHistory.map((gen)=>{
+      if(gen.id==id){
+        gen.setActive();
+        this.processedFiles=gen;
+        this.selectedImage=gen.files[0];
+      } else {
+        gen.setActive(false);
+      }
+      return gen;
+    });
+    console.log(this.processedFiles);
+
+  }
+
+  generateImage() {
 
     if(this.processedFiles&&this.selectedBodyPart){
-
       this.merge();
-    }else{
+    } else {
 
-        //generate generation 1
-        this.saveRanges(null);
+      //generate generation 1
+
+      this.saveRanges(null);
     }
+
   }
 
-  showMessag(msg:string){
-  this.toastr.info(msg) 
-}
-  undo(){
-      //undo last changes
+  showMessag(msg:string) {
 
-      if(this.changeHistory.length >0)
-        { this.processedFiles=this.changeHistory.pop();
-          this.selectedImage=this.processedFiles[0];
+    this.toastr.info(msg);
 
-        }
+  }
+  
+  undo() {
+
+    //undo last changes
+
+    if(this.changeHistory.length >0) {
+      this.processedFiles=this.changeHistory.pop();
+      this.selectedImage=this.processedFiles[0];
+    }
+
   }
 
-
-  merge(){
+  merge() {
 
     //input.json from selected Image
-    if(!this.serverReady)
-      {
-        this.showMessag("Server is not ready.Please wait for few seconds");
-        return;
-      }
 
-      if(! this.selectedImage && !this.selectedBodyPart ){
-        this.showMessag("Please select an Image template and body part to merge");
-        return;
-      }
+    if(!this.serverReady) {
+      this.showMessag("Server is not ready.Please wait for few seconds");
+      return;
+    }
+
+    if( !this.selectedImage && !this.selectedBodyPart ) {
+      this.showMessag("Please select an Image template and body part to merge");
+      return;
+    }
 
     let inputVal= Object.assign({},this.selectedImage);
 
     for(var attr in this.selectedBodyPart){
-      if(inputVal[attr]){}
-      else
-      inputVal[attr]=0;
-    }
+      if(inputVal[attr]) {
 
+        //Blank Code Detected. Check for possible Error.
+
+      } else {
+        inputVal[attr]=0;
+      }
+    }
 
     let outputVal=Object.assign({},this.selectedImage,this.selectedBodyPart);
 
     delete outputVal.file;
-
 
     delete inputVal.file;
 
@@ -387,120 +378,98 @@ console.log(this.processedFiles);
     const inputjson = JSON.stringify(inputVal);
     const outputjson = JSON.stringify(outputVal);
 
- //send via socket
+    //send via socket
 
- this.sendValues(inputVal,outputVal,"Generation: "+this.bodyParts.part);
-
-
+    this.sendValues(inputVal,outputVal,"Generation: "+this.bodyParts.part);
   }
 
 imageSelected(index:number){
+
   try{
-      this.selectedImage=this.processedFiles.files[index];
-
-
+    this.selectedImage=this.processedFiles.files[index];
   }catch(ex){
 
+    //Error Handling to be implemented.
 
   }
 
+}
 
+scrollLeft() {
+
+  var view = $(".scroller-content");
+  var move = "250px";
+  var sliderLimit = -250;
+  
+  var currentPosition = parseInt(view.css("left"));
+  if (currentPosition < 0) view.stop(false,true).animate({left:"+="+move},{ duration: 400});
 
 }
 
+scrollRight(){
 
+  var view = $(".scroller-content");
+  var move = "250px";
+  var sliderLimit = -250;
 
-  scrollLeft(){
+  var currentPosition = parseInt(view.css("left"));
+  if (currentPosition >= sliderLimit) view.stop(false,true).animate({left:"-="+move},{ duration: 400})
 
-        var view = $(".scroller-content");
-        var move = "250px";
-        var sliderLimit = -250;
+}
 
+saveBaseParamRange(slider,value,sobj) {
 
+  console.log('Value of slider ' + slider + ' changed to', value);
+  console.log(sobj);
+  if(slider=="asian"){
+    let dx1= value[0]-this.oldEthinicVal.asian[0];
+    let dx2= value[1]-this.oldEthinicVal.asian[1];
 
-    var currentPosition = parseInt(view.css("left"));
-    if (currentPosition < 0) view.stop(false,true).animate({left:"+="+move},{ duration: 400});
+    this.oldEthinicVal.asian=value;
+    let val:any=[this.Caucasian[0]-(dx1/2.0),this.Caucasian[1]-(dx2/2.0)];
 
+    this.Caucasian=val;
+    let val2:any=[this.African[0]-(dx1/2.0),this.African[1]-(dx2/2.0)];
 
+    this.African=val;
+  }
+  if(slider=="african"){
+
+    let dx1= value[0]-this.oldEthinicVal.african[0];
+
+    let dx2= value[1]-this.oldEthinicVal.african[1];
+    this.oldEthinicVal.african =value;
+
+    let val:any=[this.Caucasian[0]-(dx1/2.0),this.Caucasian[1]-(dx2/2.0)];
+    this.Caucasian=val;
+    let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
+    this.Asian=val;
   }
 
-  scrollRight(){
+  if(slider=="caucasian"){
 
-    var view = $(".scroller-content");
-var move = "250px";
-var sliderLimit = -250;
+    let dx1= value[0]-this.oldEthinicVal.caucasian [0];
 
+    let dx2= value[1]-this.oldEthinicVal.caucasian  [1];
+    this.oldEthinicVal.caucasian =value;
 
-    var currentPosition = parseInt(view.css("left"));
-    if (currentPosition >= sliderLimit)
-       view.stop(false,true).animate({left:"-="+move},{ duration: 400})
+    let val:any=[this.African [0]-(dx1/2.0),this.African [1]-(dx2/2.0)];
+    this.African =val;
 
+    let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
+    this.Asian=val;
+  }
+}
 
+saveRanges(saveRange:NgForm){
+
+  if(!this.serverReady) {
+    this.showMessag("Server is not ready.Please wait for few seconds");
+    return;
   }
 
+  this.generationCount++;
 
-  saveBaseParamRange(slider,value,sobj) {
-    console.log('Value of slider ' + slider + ' changed to', value);
-console.log(sobj);
-if(slider=="asian"){
-
-  let dx1= value[0]-this.oldEthinicVal.asian[0];
-
-  let dx2= value[1]-this.oldEthinicVal.asian[1];
-  this.oldEthinicVal.asian=value;
-
-  let val:any=[this.Caucasian[0]-(dx1/2.0),this.Caucasian[1]-(dx2/2.0)];
-  this.Caucasian=val;
-let val2:any=[this.African[0]-(dx1/2.0),this.African[1]-(dx2/2.0)];
-  this.African=val;
-
-
-
-}
-
-
-if(slider=="african"){
-
-  let dx1= value[0]-this.oldEthinicVal.african[0];
-
-  let dx2= value[1]-this.oldEthinicVal.african[1];
-  this.oldEthinicVal.african =value;
-
-  let val:any=[this.Caucasian[0]-(dx1/2.0),this.Caucasian[1]-(dx2/2.0)];
-  this.Caucasian=val;
-  let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
-  this.Asian=val;
-
-
-
-}
-
-if(slider=="caucasian"){
-
-  let dx1= value[0]-this.oldEthinicVal.caucasian [0];
-
-  let dx2= value[1]-this.oldEthinicVal.caucasian  [1];
-  this.oldEthinicVal.caucasian =value;
-
-  let val:any=[this.African [0]-(dx1/2.0),this.African [1]-(dx2/2.0)];
-  this.African =val;
-let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
-  this.Asian=val;
-
-
-
-}
-
-
-  }
-
-  saveRanges(saveRange:NgForm){
-        if(!this.serverReady)
-      {
-        this.showMessag("Server is not ready.Please wait for few seconds");
-        return;
-      }
-      this.generationCount++;
     /*
     this.inputRes =
         {
@@ -530,8 +499,7 @@ this.outputRes = {
       }*/
 
 
-    this.inputRes =
-        {
+  this.inputRes = {
         "macrodetails/Age": this.Age[0]/10,
         "macrodetails-height/Height": this.Height[0]/10,
         "macrodetails/Gender": this.Sex[0]/10,
