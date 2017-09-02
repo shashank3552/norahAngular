@@ -43,7 +43,7 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     let gameInstance;
-    const wnd = this.global.nativeGlobal;
+    const wnd2 = this.global.nativeGlobal;
     $('.expandt').on('click', function () {
       $(this).next().slideToggle(200);
       const $expand = $(this).find('>:first-child');
@@ -76,9 +76,21 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
     gameInstance = UnityLoader.instantiate("gameContainer", "assets/js/Unity/SimplifiedTerrain.json", {
       onProgress: UnityProgress
   });
-  wnd.UnityLoadFinished = function () {
+  wnd2.UnityLoadFinished = function () {
     console.log("In callback");
   };
+  //Send the urls to unity
+  wnd2.UrlsToUnity = function (src) {
+    console.log("sending url to unity");
+    gameInstance.SendMessage("Terrain", "FromJS_SetWebGLInput", 1);
+    gameInstance.SendMessage("Terrain", "FromJS_LoadHeightmap", src);
+    gameInstance.SendMessage("Terrain", "FromJS_LoadTerrainTex", 'https://firebasestorage.googleapis.com/v0/b/norahanimation.appspot.com/o/texture%2Fnewtex1_lores.jpg?alt=media&token=0ff19e3a-1246-4e7c-ada9-7e2e3399f725');
+
+  };
+  wnd2.UnityReset = function () {
+    gameInstance.SendMessage("Terrain", "FromJS_Reset");
+  }
+ 
   }
 
   imageLoaded(event) {
