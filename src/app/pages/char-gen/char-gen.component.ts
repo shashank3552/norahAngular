@@ -297,11 +297,11 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
     console.log("Switching image to:" +id);
     console.log(this.processedFiles);
-    this.changeHistory=this.changeHistory.map((gen)=>{
-      if(gen.id==id){
+    this.changeHistory = this.changeHistory.map((gen) => {
+      if(gen.id == id){
         gen.setActive();
-        this.processedFiles=gen;
-        this.selectedImage=gen.files[0];
+        this.processedFiles = gen;
+        this.selectedImage = gen.files[0];
       } else {
         gen.setActive(false);
       }
@@ -313,7 +313,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
   generateImage() {
 
-    if(this.processedFiles&&this.selectedBodyPart){
+    if(this.processedFiles && this.selectedBodyPart) {
       this.merge();
     } else {
 
@@ -324,7 +324,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
   }
 
-  showMessag(msg:string) {
+  showMessag(msg: string) {
 
     this.toastr.info(msg);
 
@@ -334,9 +334,9 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
     //undo last changes
 
-    if(this.changeHistory.length >0) {
-      this.processedFiles=this.changeHistory.pop();
-      this.selectedImage=this.processedFiles[0];
+    if(this.changeHistory.length > 0) {
+      this.processedFiles = this.changeHistory.pop();
+      this.selectedImage = this.processedFiles[0];
     }
 
   }
@@ -355,7 +355,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
       return;
     }
 
-    let inputVal= Object.assign({},this.selectedImage);
+    let inputVal = Object.assign({}, this.selectedImage);
 
     for(var attr in this.selectedBodyPart){
       if(inputVal[attr]) {
@@ -363,11 +363,11 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
         //Blank Code Detected. Check for possible Error.
 
       } else {
-        inputVal[attr]=0;
+        inputVal[attr] = 0;
       }
     }
 
-    let outputVal=Object.assign({},this.selectedImage,this.selectedBodyPart);
+    let outputVal = Object.assign({}, this.selectedImage, this.selectedBodyPart);
 
     delete outputVal.file;
 
@@ -380,99 +380,97 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
     //send via socket
 
-    this.sendValues(inputVal,outputVal,"Generation: "+this.bodyParts.part);
+    this.sendValues(inputVal,outputVal,"Generation: " + this.bodyParts.part);
   }
 
-imageSelected(index:number){
+  imageSelected(index: number){
 
-  try{
-    this.selectedImage=this.processedFiles.files[index];
-  }catch(ex){
+    try {
+      this.selectedImage = this.processedFiles.files[index];
+    } catch(ex) {
 
-    //Error Handling to be implemented.
+      //Error Handling to be implemented.
+
+    }
 
   }
 
-}
+  scrollLeft() {
 
-scrollLeft() {
+    var view = $(".scroller-content");
+    var move = "250px";
+    var sliderLimit = -250;
+    
+    var currentPosition = parseInt(view.css("left"));
+    if (currentPosition < 0) view.stop(false,true).animate({left: "+=" + move},{ duration: 400});
 
-  var view = $(".scroller-content");
-  var move = "250px";
-  var sliderLimit = -250;
-  
-  var currentPosition = parseInt(view.css("left"));
-  if (currentPosition < 0) view.stop(false,true).animate({left:"+="+move},{ duration: 400});
-
-}
-
-scrollRight(){
-
-  var view = $(".scroller-content");
-  var move = "250px";
-  var sliderLimit = -250;
-
-  var currentPosition = parseInt(view.css("left"));
-  if (currentPosition >= sliderLimit) view.stop(false,true).animate({left:"-="+move},{ duration: 400})
-
-}
-
-saveBaseParamRange(slider,value,sobj) {
-
-  console.log('Value of slider ' + slider + ' changed to', value);
-  console.log(sobj);
-  if(slider=="asian"){
-    let dx1= value[0]-this.oldEthinicVal.asian[0];
-    let dx2= value[1]-this.oldEthinicVal.asian[1];
-
-    this.oldEthinicVal.asian=value;
-    let val:any=[this.Caucasian[0]-(dx1/2.0),this.Caucasian[1]-(dx2/2.0)];
-
-    this.Caucasian=val;
-    let val2:any=[this.African[0]-(dx1/2.0),this.African[1]-(dx2/2.0)];
-
-    this.African=val;
-  }
-  if(slider=="african"){
-
-    let dx1= value[0]-this.oldEthinicVal.african[0];
-
-    let dx2= value[1]-this.oldEthinicVal.african[1];
-    this.oldEthinicVal.african =value;
-
-    let val:any=[this.Caucasian[0]-(dx1/2.0),this.Caucasian[1]-(dx2/2.0)];
-    this.Caucasian=val;
-    let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
-    this.Asian=val;
   }
 
-  if(slider=="caucasian"){
+  scrollRight(){
 
-    let dx1= value[0]-this.oldEthinicVal.caucasian [0];
+    var view = $(".scroller-content");
+    var move = "250px";
+    var sliderLimit = -250;
 
-    let dx2= value[1]-this.oldEthinicVal.caucasian  [1];
-    this.oldEthinicVal.caucasian =value;
+    var currentPosition = parseInt(view.css("left"));
+    if (currentPosition >= sliderLimit) view.stop(false,true).animate({left: "-=" + move},{ duration: 400})
 
-    let val:any=[this.African [0]-(dx1/2.0),this.African [1]-(dx2/2.0)];
-    this.African =val;
-
-    let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
-    this.Asian=val;
-  }
-}
-
-saveRanges(saveRange:NgForm){
-
-  if(!this.serverReady) {
-    this.showMessag("Server is not ready.Please wait for few seconds");
-    return;
   }
 
-  this.generationCount++;
+  saveBaseParamRange(slider,value,sobj) {
 
-    /*
-    this.inputRes =
-        {
+    console.log('Value of slider ' + slider + ' changed to', value);
+    console.log(sobj);
+    if (slider == "asian") {
+      let dx1 = value[0] - this.oldEthinicVal.asian[0];
+      let dx2 = value[1] - this.oldEthinicVal.asian[1];
+
+      this.oldEthinicVal.asian = value;
+      let val: any = [this.Caucasian[0] - (dx1 / 2.0), this.Caucasian[1] - (dx2 / 2.0)];
+
+      this.Caucasian=val;
+      let val2: any = [this.African[0] - (dx1 / 2.0), this.African[1] - (dx2 / 2.0)];
+
+      this.African = val;
+    }
+    if (slider == "african") {
+
+      let dx1 = value[0] - this.oldEthinicVal.african[0];
+
+      let dx2 = value[1] - this.oldEthinicVal.african[1];
+      this.oldEthinicVal.african = value;
+
+      let val: any = [this.Caucasian[0] - (dx1 / 2.0), this.Caucasian[1] - (dx2 / 2.0)];
+      this.Caucasian = val;
+      let val2: any = [this.Asian[0] - (dx1 / 2.0), this.Asian[1] - (dx2 / 2.0)];
+      this.Asian = val;
+    }
+
+    if (slider == "caucasian") {
+      let dx1 = value[0] - this.oldEthinicVal.caucasian[0];
+
+      let dx2 = value[1] - this.oldEthinicVal.caucasian[1];
+      this.oldEthinicVal.caucasian = value;
+
+      let val: any = [this.African[0] - (dx1 / 2.0), this.African[1] - (dx2 / 2.0)];
+      this.African = val;
+
+      let val2: any = [this.Asian[0] - (dx1 / 2.0), this.Asian[1] - (dx2 / 2.0)];
+      this.Asian = val;
+    }
+  }
+
+  saveRanges(saveRange:NgForm) {
+
+    if(!this.serverReady) {
+      this.showMessag("Server is not ready.Please wait for few seconds");
+      return;
+    }
+
+    this.generationCount++;
+
+      /*
+      this.inputRes = {
         "macrodetails/Age": this.Age[0]/10,
         "macrodetails-height/Height": this.Height[0]/10,
         "macrodetails/Gender": this.Sex[0]/10,
@@ -484,9 +482,7 @@ saveRanges(saveRange:NgForm){
         "macrodetails/Caucasian": this.Caucasian[0]/10
       }
 
-
-this.outputRes = {
-
+      this.outputRes = {
         "macrodetails/Age": this.Age[1]/10,
         "macrodetails-height/Height": this.Height[1]/10,
         "macrodetails/Gender": this.Sex[1]/10,
@@ -499,240 +495,241 @@ this.outputRes = {
       }*/
 
 
-  this.inputRes = {
-        "macrodetails/Age": this.Age[0]/10,
-        "macrodetails-height/Height": this.Height[0]/10,
-        "macrodetails/Gender": this.Sex[0]/10,
-        "macrodetails-universal/Weight": this.Weight[0]/10,
-        "macrodetails-proportions/BodyProportions":this.Proportion[0]/10,
-        "macrodetails-universal/Muscle":this.Muscle[0]/10,
-        "macrodetails/Asian": this.ethnicity[0]/10,
-        "macrodetails/African": (this.ethnicity[1]-this.ethnicity[0])/10,
-        "macrodetails/Caucasian": (10-this.ethnicity[1])/10
-      }
-
-
-this.outputRes = {
-
-        "macrodetails/Age": this.Age[1]/10,
-        "macrodetails-height/Height": this.Height[1]/10,
-        "macrodetails/Gender": this.Sex[1]/10,
-        "macrodetails-universal/Weight": this.Weight[1]/10,
-        "macrodetails-proportions/BodyProportions":this.Proportion[1]/10,
-        "macrodetails-universal/Muscle":this.Muscle[1]/10,
-        "macrodetails/Asian": this.ethnicity[0]/10,
-        "macrodetails/African": (this.ethnicity[1]-this.ethnicity[0])/10,
-        "macrodetails/Caucasian": (10-this.ethnicity[1])/10
-      }
-
-
-       for(var attr in DefaultInputValues){
-          if(this.inputRes[attr]){
-           //   console.log("found "+attr)
-           }
-      else
-      {  //console.log("not found "+attr);
-        this.inputRes[attr]=DefaultInputValues[attr];
-        this.outputRes[attr]=DefaultInputValues[attr];
+    this.inputRes = {
+      "macrodetails/Age": this.Age[0]/10,
+      "macrodetails-height/Height": this.Height[0]/10,
+      "macrodetails/Gender": this.Sex[0]/10,
+      "macrodetails-universal/Weight": this.Weight[0]/10,
+      "macrodetails-proportions/BodyProportions":this.Proportion[0]/10,
+      "macrodetails-universal/Muscle":this.Muscle[0]/10,
+      "macrodetails/Asian": this.ethnicity[0]/10,
+      "macrodetails/African": (this.ethnicity[1] - this.ethnicity[0])/10,
+      "macrodetails/Caucasian": (10-this.ethnicity[1])/10
     }
 
-  }
+    this.outputRes = {
+      "macrodetails/Age": this.Age[1]/10,
+      "macrodetails-height/Height": this.Height[1]/10,
+      "macrodetails/Gender": this.Sex[1]/10,
+      "macrodetails-universal/Weight": this.Weight[1]/10,
+      "macrodetails-proportions/BodyProportions":this.Proportion[1]/10,
+      "macrodetails-universal/Muscle":this.Muscle[1]/10,
+      "macrodetails/Asian": this.ethnicity[0]/10,
+      "macrodetails/African": (this.ethnicity[1] - this.ethnicity[0])/10,
+      "macrodetails/Caucasian": (10-this.ethnicity[1])/10
+    }
 
-      console.log(this.inputRes);
-      console.log(this.outputRes);
-    this.sendValues(this.inputRes,this.outputRes,"Generation "+this.generationCount);
+    for(var attr in DefaultInputValues) {
+      if(this.inputRes[attr]){
 
-  const inputjson = JSON.stringify(this.inputRes);
-  const outputjson = JSON.stringify(this.outputRes);
-  var blobinput = new Blob([inputjson], {type: "application/json"});
-  var bloboutput = new Blob([outputjson], {type: "application/json"});
+        //   console.log("found "+attr)
 
-  let form: FormData = new FormData();
-  form.append("input",blobinput, "input.json");
-  form.append("output",bloboutput, "output.json");
-  //let headers = new Headers({ 'Content-Type': 'application/json' });
-  let headers=new Headers({enctype:'multipart/form-data'});
-  var request = new XMLHttpRequest();
+      } else {
 
-  request.onreadystatechange = ()=> {
-            if (request.readyState === 4) {
-                if (request.status === 200) {
-                  console.log("sUCCESS");
-                  var d=JSON.parse(request.response);
-                    console.log(d);
+        //console.log("not found "+attr);
 
-               // this.toaster.pop('success',"Char maker ","Files successfully uploaded  ID:"+d.id );
-               this.FileUploadId=d.id;
-               this.showMessag("Files successfully uploaded  ID:"+d.id );
-              } else {
-                  console.log("fAILED");
-                  this.showMessag("Failed to upload Files");
-        //this.toaster.pop('error',"Char maker ","Failed to upload Files");
-                    console.log(request.response);
-                }
-            }
+        this.inputRes[attr] = DefaultInputValues[attr];
+        this.outputRes[attr] = DefaultInputValues[attr];
+      }
+    }
+
+    console.log(this.inputRes);
+    console.log(this.outputRes);
+    this.sendValues(this.inputRes, this.outputRes, "Generation " + this.generationCount);
+
+    const inputjson = JSON.stringify(this.inputRes);
+    const outputjson = JSON.stringify(this.outputRes);
+    var blobinput = new Blob([inputjson], {type: "application/json"});
+    var bloboutput = new Blob([outputjson], {type: "application/json"});
+
+    let form: FormData = new FormData();
+    form.append("input",blobinput, "input.json");
+    form.append("output",bloboutput, "output.json");
+
+    //let headers = new Headers({ 'Content-Type': 'application/json' });
+
+    let headers = new Headers({enctype:'multipart/form-data'});
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = () => {
+      if (request.readyState === 4) {
+        if (request.status === 200) {
+          console.log("sUCCESS");
+          var d = JSON.parse(request.response);
+          console.log(d);
+
+          // this.toaster.pop('success',"Char maker ","Files successfully uploaded  ID:"+d.id );
+
+          this.FileUploadId = d.id;
+          this.showMessag("Files successfully uploaded  ID:" + d.id);
+        } else {
+          console.log("fAILED");
+          this.showMessag("Failed to upload Files");
+
+          //this.toaster.pop('error',"Char maker ","Failed to upload Files");
+
+          console.log(request.response);
         }
-  /*request.open(
-              "POST",
-              "http://localhost:8080/upload"  //replace with the target server which is handling uploads
-              //"http://130.211.167.206:2000/upload"
-             // "http://192.168.1.114:3000/users/abc"
-    ,true
-            );
-    */
-  //request.send(form);
+      }
+    }
+
+    /*request.open(
+                "POST",
+                "http://localhost:8080/upload"  //replace with the target server which is handling uploads
+                //"http://130.211.167.206:2000/upload"
+               // "http://192.168.1.114:3000/users/abc"
+      ,true
+              );
+      */
+    //request.send(form);
 
   }
 
-  sendValues(inputValues,outputValues,genrationName){
+  sendValues(inputValues,outputValues,genrationName) {
 
-  this.socket.emit("upload",{inputValues:inputValues,outputValues:outputValues,generationName:genrationName},(err)=>{
-    console.log("upload request sent");
-    console.log(err);
-  });
+    this.socket.emit("upload",{inputValues:inputValues, outputValues:outputValues, generationName:genrationName}, (err) => {
+      console.log("upload request sent");
+      console.log(err);
+    });
+
   }
 
+  showFace: boolean = false;
 
-showFace:boolean=false;
-  bodyPartTypeSelected(part:string){
+  bodyPartTypeSelected(part: string) {
 
-      //fetch the requestd body part
-      console.log("fecthcing parts: "+part);
+    //fetch the requestd body part
 
-if(part=="face"){
-  this.showFace=true;
-part="cheek"
-}
-else
-  this.showFace=false;
-      this.bodyPartImage=`assets/images/human/${part}.png`;
-            this.socket.emit("bodyPart",{part:part});
+    console.log("fecthcing parts: "+part);
+    if(part == "face") {
+      this.showFace = true;
+      part = "cheek";
+    } else {
+      this.showFace=false;
+      this.bodyPartImage=`assets/images/human/${part}.png`; //Please Recheck this function. Suspected Ambiguity.
+    }
+    this.socket.emit("bodyPart",{part:part});
 
   }
 
   facePartTypeSelected(part:string){
 
-      //fetch the requestd body part
-      console.log("fecthcing parts: "+part);
+    //fetch the requestd body part
 
-      this.bodyPartImage=`assets/images/human/${part}.png`;
-            this.socket.emit("bodyPart",{part:part});
+    console.log("fecthcing parts: " + part);
+    this.bodyPartImage=`assets/images/human/${part}.png`;
+    this.socket.emit("bodyPart",{part:part});
 
   }
-    bodyPartSelected(index:number){
-        try{
-      this.selectedBodyPart=this.bodyParts.files[index]
-        }catch(ex){
 
-        }
+  bodyPartSelected(index:number){
+
+    try{
+      this.selectedBodyPart=this.bodyParts.files[index];
+    } catch(ex) {
+      //Missing Error Handling
     }
 
-   errorHandler(error: Response){
+  }
+
+  errorHandler(error: Response) {
+
     console.error(error);
     return Observable.throw(error || "Server error");
 
   }
 
   onChange(value: any) {
+
     console.log('Value changed to', value);
+
   }
 
-  exportFbx(addToGame:boolean=false){
-      //input.json from selected Image
-      if(!this.serverReady)
-      {
-        this.showMessag("Server is not ready.Please wait for few seconds");
-        return;
-      }
-    if( !this.processedFiles){
+  exportFbx(addToGame: boolean = false) {
+
+    //input.json from selected Image
+
+    if(!this.serverReady) {
+      this.showMessag("Server is not ready.Please wait for few seconds");
+      return;
+    }
+    if( !this.processedFiles) {
       this.showMessag("Please generate model to export");
       return;
-
     }
-    let inputVal= Object.assign({},this.selectedImage);
-
-
-
-
-
-
+    let inputVal = Object.assign({}, this.selectedImage);
     delete inputVal.file;
-
     console.log(inputVal);
-    console.log("addtogame"+addToGame);
+    console.log("addtogame" + addToGame);
 
- //send via socket
-if(addToGame)
-    this.socket.emit("exportModel",{inputValues: inputVal,addToGame:addToGame});
-else
-     this.socket.emit("exportModel",{inputValues: inputVal});
-}
+    //send via socket
 
-
-ngAfterViewInit(){
-
-}
-
-@HostListener('document:keydown', ['$event'])
-changeImage(event:KeyboardEvent){
-if(this.processedFiles){
-  if(event.keyCode==37){
-      //left arrow
-      let index=this.processedFiles.files.findIndex((x)=>x.file==this.selectedImage.file)
-      if(index!=0)
-        this.selectedImage=this.processedFiles.files[index-1];
-
+    if(addToGame) {
+      this.socket.emit("exportModel", {inputValues: inputVal, addToGame: addToGame});
+    } else {
+      this.socket.emit("exportModel", {inputValues: inputVal});
     }
-  if(event.keyCode==39){
-    //rightarrow
-    
-      let index=this.processedFiles.files.findIndex((x)=>x.file==this.selectedImage.file)
-      if(index!=this.processedFiles.files.length-1)
-        this.selectedImage=this.processedFiles.files[index+1];
-
   }
-}
-}
 
+  ngAfterViewInit(){}
 
-addToGame(fbxfile,imageFile) {
+  @HostListener('document:keydown', ['$event'])
+  changeImage(event: KeyboardEvent) {
+    if(this.processedFiles){
+      if(event.keyCode == 37) {
+
+        //left arrow
+        
+        let index = this.processedFiles.files.findIndex((x) => x.file == this.selectedImage.file)
+        if(index != 0) {
+          this.selectedImage = this.processedFiles.files[index - 1];
+        }
+      }
+    }
+    if(event.keyCode == 39) {
+
+      //rightarrow
+
+      let index = this.processedFiles.files.findIndex((x) => x.file == this.selectedImage.file)
+      if(index != this.processedFiles.files.length - 1) {
+        this.selectedImage = this.processedFiles.files[index + 1];
+      }
+    }
+  }
+
+  addToGame(fbxfile, imageFile) {
+
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
+    if(!firebase.auth().currentUser) {
+      toastr.error("Please log in to continue");
+      return;
+    }
+    var newObjRef= firebase.database()
+      .ref('usernames')
+      .child(firebase.auth().currentUser.uid)
+      .child('gameLibrary')
+      .child('charModels').push();
 
-    if(!firebase.auth().currentUser)
-      {
-        toastr.error("Please log in to continue");
-        return;
-      }
-
-      
-      var newObjRef= firebase.database()
-        .ref('usernames')
-        .child(firebase.auth().currentUser.uid)
-        .child('gameLibrary')
-        .child('charModels').push();
-
-        var filename=newObjRef.key+".fbx";
-        var imageFilename=newObjRef.key+".png"
-
-        toastr.info("Uploading file to storage");
-        firebase.storage().ref('/gameLibrary/charModels').child(`${filename}`).put(fbxfile).then((snapshot)=>{
-          console.log(snapshot);
-          var obj=  {modelLink:snapshot.downloadURL,modelRef:snapshot.ref.fullPath};
-          console.log(obj);
-          firebase.storage().ref('/gameLibrary/charModels').child(`${imageFilename}`).put(imageFile).then((snapshot)=>{
-            obj["imageLink"]=snapshot.downloadURL;
-            obj["imageRef"]= snapshot.ref.fullPath;
-            newObjRef.set(obj).then((d)=>{
-              console.log(d);
-              toastr.info("File has been added to library.");
-            });
-          });
+    var filename = newObjRef.key + ".fbx";
+    var imageFilename = newObjRef.key + ".png";
+    toastr.info("Uploading file to storage");
+    firebase.storage().ref('/gameLibrary/charModels').child(`${filename}`).put(fbxfile).then((snapshot) => {
+      console.log(snapshot);
+      var obj = {
+        modelLink: snapshot.downloadURL,
+        modelRef: snapshot.ref.fullPath
+      };
+      console.log(obj);
+      firebase.storage().ref('/gameLibrary/charModels').child(`${imageFilename}`).put(imageFile).then((snapshot) => {
+        obj["imageLink"] = snapshot.downloadURL;
+        obj["imageRef"] = snapshot.ref.fullPath;
+        newObjRef.set(obj).then((d) => {
+          console.log(d);
+          toastr.info("File has been added to library.");
+        });
+      });
     });
-            
-   
   }
- 
-
 }
 
