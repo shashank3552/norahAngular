@@ -382,7 +382,8 @@ li.sex-r-slider {
     width: 180px !important;
 }
 .an-full-min-height-container{
-    min-height: calc( 100vh - 214px);
+    /*min-height: calc( 100vh - 214px);*/
+    min-height: 100vh;
 }
 .min-height-520px{
     min-height: 520px;

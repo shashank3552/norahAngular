@@ -585,7 +585,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
   }
 
-  sendValues(inputValues,outputValues,genrationName) {
+  sendValues(inputValues, outputValues, genrationName) {
 
     this.socket.emit("upload",{inputValues:inputValues, outputValues:outputValues, generationName:genrationName}, (err) => {
       console.log("upload request sent");
@@ -600,13 +600,13 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
     //fetch the requestd body part
 
-    console.log("fecthcing parts: "+part);
+    console.log("fecthcing parts: " + part);
     if(part == "face") {
       this.showFace = true;
       part = "cheek";
     } else {
-      this.showFace=false;
-      this.bodyPartImage=`assets/images/human/${part}.png`; //Please Recheck this function. Suspected Ambiguity.
+      this.showFace = false;
+      this.bodyPartImage = `assets/images/human/${part}.png`; //Please Recheck this function. Suspected Ambiguity.
     }
     this.socket.emit("bodyPart",{part:part});
 
@@ -617,15 +617,15 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
     //fetch the requestd body part
 
     console.log("fecthcing parts: " + part);
-    this.bodyPartImage=`assets/images/human/${part}.png`;
+    this.bodyPartImage = `assets/images/human/${part}.png`;
     this.socket.emit("bodyPart",{part:part});
 
   }
 
-  bodyPartSelected(index:number){
+  bodyPartSelected(index: number){
 
     try{
-      this.selectedBodyPart=this.bodyParts.files[index];
+      this.selectedBodyPart = this.bodyParts.files[index];
     } catch(ex) {
       //Missing Error Handling
     }

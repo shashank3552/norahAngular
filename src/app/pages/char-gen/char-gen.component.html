@@ -113,11 +113,11 @@
 <!--Container-->
 
 <div id="content-wrapper">
-  <div class="object-container">
+  <div class="object-container an-object-container">
     <div class="object-container-in an-display-flex clearfix">
       <div class="head-detail an-head-details-vertical clearfix">
         <div class="head-title clearfix">
-          <h3 *ngIf="processedFiles">{{processedFiles.title}}</h3>
+          <h3 style="margin-top: 10px" *ngIf="processedFiles">{{processedFiles.title}}</h3>
           <div class="dropdown pull-right">
             <div ngbDropdown class="d-inline-block">
               <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i>List</button>
@@ -129,42 +129,118 @@
             </div>
           </div>
         </div>
-        <div class="head-detail-block">
-          <div class="full-btn left" style="display:none">
-            <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
+        <div class="an-head-details-scrollable">
+
+                <div class="head-detail-block">
+                  <div class="full-btn left" style="display:none">
+                    <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
+                  </div>
+                  <div class="scroller-content" *ngIf="processedFiles">
+                    <div  *ngFor="let pFile of processedFiles.files;let i=index" (click)="imageSelected(i)" [class]="pFile.file == selectedImage.file ? 'block active' : 'block'">
+                      <img  class="block_img padding-top-40px" src={{pFile.file}}/>
+                    </div>
+                  </div>
+                  <div class="full-btn right" style="display:none">
+                    <a (click)="scrollRight()"> <i class="fa fa-caret-right"> </i> </a>
+                  </div>
+                </div>
+
           </div>
-          <div class="scroller-content" *ngIf="processedFiles">
-            <div  *ngFor="let pFile of processedFiles.files;let i=index" (click)="imageSelected(i)" [class]="pFile.file==selectedImage.file?'block active':'block'">
-              <img  class="block_img padding-top-40px" src={{pFile.file}}/>
+          <div class="an-selected-block-vertical">
+            <div class="an-align-center">
+                Input 1
+
+            </div>
+            <div class="head-detail-block">
+              <div class="block">
+                <img  class="block_img" src={{selectedImage.file}}/>
+              </div>
             </div>
           </div>
-          <div class="full-btn right" style="display:none">
-            <a (click)="scrollRight()"><i class="fa fa-caret-right"></i></a>
-          </div>
         </div>
-      </div>
+
       <div class="object-container-dna an-dna-conatiner">
         <div class="dna-code-title">
-          <h2>DNA CODE</h2>
+          <h2> DNA CODE </h2>
         </div>
         <div class="dna-code-title2" *ngIf="false" >
           <h2>“ An old man is wiser than it appears”</h2>
         </div>
-        <div class="block block-object">
+        <div class="block block-object ">
           <span class="helper"></span>
-          <img id="dnaCode_main_img"  [imageZoom]=selectedImage.file  src="{{selectedImage.file}}" appZooom >
+          <div class="an-display-flex">
+            <div class="an-main-img">
+                <img id="dnaCode_main_img"  [imageZoom]=selectedImage.file  src="{{selectedImage.file}}" appZooom >
+              
+              <div class="an-btn-below-img clearfix">
+                <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)"> Add to game </a>
+                <a style="cursor: not-allowed" class="addgame-btn" style="margin-left: 10px" (click)="exportFbx()"> Export fbx </a>
+              </div>
+              
+            </div>
+            <div class="an-main-img" *ngIf="selectedBodyPart">
+                <img id="dnaCode_main_img"  [imageZoom]=selectedBodyPart.file  src="{{selectedBodyPart.file}}" appZooom >
+              
+              <div class="an-btn-below-img clearfix">
+                <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)"> Add to game </a>
+                <a style="cursor: not-allowed" class="addgame-btn" style="margin-left: 10px" (click)="exportFbx()"> Export fbx </a>
+              </div>
+            </div>
+          </div>
+          
           <div class="object-container-dna-btm">
             <div class="addgame">
-              <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)">Add to game</a>
-              <a style="cursor: not-allowed" class="addgame-btn" style="margin-left:10px" (click)="exportFbx()" >Export fbx</a>
-              <a href="javascript:void(0)" class="addgame-btn pull-right">Add to library</a>
+              <!-- <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)"> Add to game </a>
+              <a style="cursor: not-allowed" class="addgame-btn" style="margin-left: 10px" (click)="exportFbx()"> Export fbx </a> -->
+              <div class="shuffle-btn"> <!-- Change Button color to Primary -->
+                <a  (click)="generateImage()"> Merge </a>
+              </div>              
+
+              <!-- <a href="javascript:void(0)" class="addgame-btn pull-right">Add to library</a> -->
+
             </div>
           </div>
         </div>
       </div>
       <div class="shuffle-btn" style="display: none" >
-        <a id="genButton" (click)="saveRanges()" >Generate</a>
-        <a  (click)="generateImage()" >Merge</a>
+        <a id="genButton" (click)="saveRanges()"> Generate </a>
+        <a  (click)="generateImage()"> Merge </a>
+      </div>
+      <div id="RSidebar" class="an-RSidebar">
+        <div class="btn-panel" *ngIf="false" >
+          <button class="btn btn-primary btn-panel_btn" [disabled]="!changeHistory.length>0" (click)="undo()" >Undo</button>
+          <button class="btn btn-primary btn-panel_btn " (click)="merge()"> Merge</button>
+        </div>
+
+        <!-- <h1>{{bodyParts.part}}</h1> -->
+        
+          <div class="head-detail an-head-details-vertical clearfix">
+            <div class="head-title "><h3> Repository </h3></div>
+            <div class="an-head-details-scrollable">
+              <div class="head-detail-block">
+                <div class="scroller-content" *ngFor="let bodyPart of bodyParts.files;let i=index">
+                  <div class="" (click)="bodyPartSelected(i)" >
+                    <div [class]="selectedBodyPart && selectedBodyPart.file == bodyPart.file ? 'block active' : 'block'">
+                      <img src={{bodyPart.file}} class="block_img ">
+                    </div>
+
+              <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+                  </div>                
+                </div>
+
+              </div>
+            </div>
+            <div class="an-selected-block-vertical clearfix">
+              <div class="an-align-center">
+                  Input 2
+              </div>
+              <div class="head-detail-block">
+                <div  class="block">
+                  <img *ngIf="selectedBodyPart" class="block_img" src={{selectedBodyPart.file}}/>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -174,26 +250,13 @@
 
 <!--Right Sidebar-->
 
-<div id="RSidebar">
-  <div class="btn-panel" *ngIf="false" >
-    <button class="btn btn-primary btn-panel_btn" [disabled]="!changeHistory.length>0" (click)="undo()" >Undo</button>
-    <button class="btn btn-primary btn-panel_btn " (click)="merge()"> Merge</button>
-  </div>
-  <h1>{{bodyParts.part}}</h1>
-  <div class="rsidebar-block" *ngFor="let bodyPart of bodyParts.files;let i=index">
-    <div class="rangeSlider_block" (click)="bodyPartSelected(i)" >
-      <div [class]="selectedBodyPart&&selectedBodyPart.file==bodyPart.file?'block active':'block'">
-        <img src={{bodyPart.file}} class="block_img">
-      </div>
 
-<!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
-    </div>
-  </div>
-  <div class="shuffle-btn">
-    <a  (click)="generateImage()" >Merge</a>
-  </div>
+  <!-- <div *ngIf="selectedBodyPart.file">
+    <img  class="block_img padding-top-40px" src={{selectedBodyPart.file}}/>
+  </div> -->
+
 </div>
 
-<div id="toasterDiv" style="display: none ;position:absolute;top:0px;right:10px;color:white;background:yellowgreen;z-index:1000;" class="alert" ></div>
+<div id="toasterDiv" style="display: none; position: absolute; top: 0px; right: 10px; color: white; background: yellowgreen; z-index: 1000;" class="alert" ></div>
 
 <!--Right Sidebar-->
