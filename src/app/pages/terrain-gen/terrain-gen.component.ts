@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewEncapsulation, NgZone, OnInit,OnDestroy } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { GlobalRef } from '../../global-ref';
 import { HeightMapSocketService } from './HeightMapSocketService';
@@ -14,7 +14,7 @@ declare const ValidateInputsThenApply: any;
   styleUrls: ['./terrain-gen.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class TerrainGenComponent implements AfterViewInit {
+export class TerrainGenComponent implements OnInit, AfterViewInit {
 
   activeLink = 'canyons';
   isGenerate = true;
@@ -29,10 +29,21 @@ export class TerrainGenComponent implements AfterViewInit {
   constructor(private terrainService: TerrainGenService,
               private socket: HeightMapSocketService,
               private global: GlobalRef,
-              private http: Http) {
+              private http: Http,private ngZone:NgZone) {
+                window['angularComponentRef'] = {component: this, zone: ngZone};
+                // window['angularComponent'].zone.run(() => {
+                //   this.UnityLoadFinished(); 
+                // });
   }
-
+  ngOnInit() {
+  
+  }
+  ngOnDestroy() {
+  
+  }
   ngAfterViewInit() {
+    let gameInstance;
+    const wnd = this.global.nativeGlobal;
     $('.expandt').on('click', function () {
       $(this).next().slideToggle(200);
       const $expand = $(this).find('>:first-child');
@@ -62,6 +73,12 @@ export class TerrainGenComponent implements AfterViewInit {
         item.src = msg.path;
       }
     });
+    gameInstance = UnityLoader.instantiate("gameContainer", "assets/js/Unity/SimplifiedTerrain.json", {
+      onProgress: UnityProgress
+  });
+  wnd.UnityLoadFinished = function () {
+    console.log("In callback");
+  };
   }
 
   imageLoaded(event) {
@@ -78,7 +95,7 @@ export class TerrainGenComponent implements AfterViewInit {
       .subscribe(items => {
         //console.log(items);
         const anims = items.map(file => {
-          console.log(file.name);
+          //console.log(file.name);
           return firebase
             .storage()
             .ref(`terrainImages/${file.type}/`)
@@ -98,7 +115,7 @@ export class TerrainGenComponent implements AfterViewInit {
       .subscribe(items => {
         //console.log(items);
         const anims = items.map(file => {
-          console.log(file.name);
+          //console.log(file.name);
           return firebase
             .storage()
             .ref(`terrainImages/${file.type}/`)
@@ -108,8 +125,8 @@ export class TerrainGenComponent implements AfterViewInit {
         this.userTerrains = Promise.all(anims);
       });
     this.isGenerate = !this.isGenerate;
-    console.log("generation Button");
-    console.log(this.isGenerate);
+    //console.log("generation Button");
+    //console.log(this.isGenerate);
   }
   isOpenAccord() {
     this.isOpen = !this.isOpen;
@@ -149,7 +166,7 @@ export class TerrainGenComponent implements AfterViewInit {
 
   /* Add terrain to db */
   addToLibrary(terrain: any) {
-    console.log(terrain);
+    //console.log(terrain);
     const terrainObj = {
       type: this.activeLink,
       name: terrain.name.split(`${this.activeLink}/`)[1],
@@ -159,7 +176,7 @@ export class TerrainGenComponent implements AfterViewInit {
   }
 
   addToGame(terrain: any) {
-    console.log(terrain);
+    //console.log(terrain);
     // const terrainName = terrain.match(/%2F(.+)\?/)[1];
     const terrainObj = {
       type: this.activeLink,
@@ -170,7 +187,7 @@ export class TerrainGenComponent implements AfterViewInit {
   }
 
   openImage(src) {
-    console.log('SRC' + src);
+    //console.log('SRC ' + src);
     ValidateInputsThenApply(src);
   }
 
@@ -200,7 +217,7 @@ export class TerrainGenComponent implements AfterViewInit {
       if ( images[i].getElementsByTagName('input')[0] &&
         images[i].getElementsByTagName('input')[0].type === 'checkbox' &&
         images[i].getElementsByTagName('input')[0].checked ) {
-        console.log('Select' + images[i].getElementsByTagName('img')[0].src);
+        //console.log('Select' + images[i].getElementsByTagName('img')[0].src);
         if ( a ) {
           a = a + ',';
         } else {
@@ -330,6 +347,7 @@ export class TerrainGenComponent implements AfterViewInit {
         return res;
       });
   }
+ 
   // openImage(src) {
   //
   //   $('#modalClose').click(function (e) {
