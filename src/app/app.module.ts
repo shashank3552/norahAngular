@@ -27,9 +27,6 @@ import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 import { SeoService } from './seo.service';
 import { GameMakerStartComponent } from './pages/game-maker-start/game-maker-start.component';
-<<<<<<< HEAD
-import { GunGenImgDirective } from './pages/gun-gen/gun-gen-img.directive';
-=======
 import { TutorialComponent } from './pages/tutorial/tutorial.component';
 import { BlogComponent } from './pages/blog/blog.component';
 import { Blog1Component } from './pages/blog1/blog1.component';
@@ -37,7 +34,6 @@ import { Blog2Component } from './pages/blog2/blog2.component';
 import { Blog3Component } from './pages/blog3/blog3.component';
 
 
->>>>>>> 94ce4e26049f109f9956625c589c637a3822fa41
 
 @NgModule({
   declarations: [
@@ -49,15 +45,11 @@ import { Blog3Component } from './pages/blog3/blog3.component';
     GameMakerComponent,
     SniperComponent,
     GameMakerStartComponent,
-<<<<<<< HEAD
-    GunGenImgDirective
-=======
     TutorialComponent,
     BlogComponent,
     Blog1Component,
     Blog3Component,
     Blog2Component
->>>>>>> 94ce4e26049f109f9956625c589c637a3822fa41
     ],
   imports: [
     BrowserModule,

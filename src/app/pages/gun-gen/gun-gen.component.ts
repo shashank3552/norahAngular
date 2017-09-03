@@ -131,10 +131,14 @@ export class GunGenComponent implements AfterViewInit {
             .ref(`gunImages/${item.type}/`)
             .child(`${item.name}`)
             .getDownloadURL()
-            .then(data => data)
+            .then(data => {item["imgsrc"]=data;
+                console.log(item);
+                return item;
+          }).catch(e=>console.log(e))
         );
         });
         this.userTerrains = Promise.all(itemsArr);
+        console.log(this.userTerrains);
       });
     this.isGenerate = !this.isGenerate;
   }
@@ -145,6 +149,7 @@ export class GunGenComponent implements AfterViewInit {
   }
 
   deleteFromLibrary(terrain: string) {
+    console.log(terrain);
     this.gunGenService.getGunsFromLibrary('mountains')
       .subscribe(items => {
         for ( const item of items ) {
@@ -326,7 +331,7 @@ export class GunGenComponent implements AfterViewInit {
       if ( images2[i].getElementsByTagName('input')[0] &&
         images2[i].getElementsByTagName('input')[0].type === 'checkbox' &&
         images2[i].getElementsByTagName('input')[0].checked ) {
-        this.showDeleteSelected = true;
+        this.showDeleteSelected = false;
         this.selectedImgs.push(tera);
       }
     }
@@ -349,7 +354,7 @@ export class GunGenComponent implements AfterViewInit {
 
 
   generateGun(){
-console.log("sending files");
+  console.log("sending files");
           this.gSocket.emit("upload",{inputValues:inputVal,outputValues:outputVal});
 
   }
