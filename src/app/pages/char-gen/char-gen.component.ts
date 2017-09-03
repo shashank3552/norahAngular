@@ -52,6 +52,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
   private FileUploadId: any;
   private processedFiles: GeneratedImages;
   private selectedImage: any = { file:"assets/images/object-2.png" };
+  private input1Image: any = { file:"" };
   private bodyParts: any = [];
   private selectedBodyPart: any;
   private changeHistory: Array<GeneratedImages> = [];
@@ -183,9 +184,11 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
         this.processedFiles = new GeneratedImages(data.id,data.generationName,"",data.files);
         this.selectedImage = data.files[0];
+        this.input1Image = this.selectedImage;
       } else {
         this.processedFiles = new GeneratedImages(data.id,data.generationName,"",data.files);
         this.selectedImage = data.files[0];
+        this.input1Image = this.selectedImage;
       }
       this.changeHistory.push(this.processedFiles);
 
@@ -302,7 +305,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
         gen.setActive();
         this.processedFiles = gen;
         this.selectedImage = gen.files[0];
-      } else {
+        this.input1Image = this.selectedImage;
         gen.setActive(false);
       }
       return gen;
@@ -337,6 +340,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
     if(this.changeHistory.length > 0) {
       this.processedFiles = this.changeHistory.pop();
       this.selectedImage = this.processedFiles[0];
+      this.input1Image = this.selectedImage;
     }
 
   }
@@ -382,11 +386,12 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
     this.sendValues(inputVal,outputVal,"Generation: " + this.bodyParts.part);
   }
-
+ 
   imageSelected(index: number){
 
     try {
       this.selectedImage = this.processedFiles.files[index];
+      this.input1Image = this.selectedImage;
     } catch(ex) {
 
       //Error Handling to be implemented.
@@ -676,23 +681,25 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
   @HostListener('document:keydown', ['$event'])
   changeImage(event: KeyboardEvent) {
     if(this.processedFiles){
-      if(event.keyCode == 37) {
+      if(event.keyCode == 38) {
 
         //left arrow
         
         let index = this.processedFiles.files.findIndex((x) => x.file == this.selectedImage.file)
         if(index != 0) {
           this.selectedImage = this.processedFiles.files[index - 1];
+          this.input1Image = this.selectedImage;
         }
       }
     }
-    if(event.keyCode == 39) {
+    if(event.keyCode == 40) {
 
       //rightarrow
 
       let index = this.processedFiles.files.findIndex((x) => x.file == this.selectedImage.file)
       if(index != this.processedFiles.files.length - 1) {
         this.selectedImage = this.processedFiles.files[index + 1];
+        this.input1Image = this.selectedImage;
       }
     }
   }
