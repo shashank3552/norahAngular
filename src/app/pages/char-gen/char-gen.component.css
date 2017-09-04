@@ -195,6 +195,87 @@ position: absolute;
 	width:20%;
 	z-index: 10;
 }
+.an-RSidebar{
+    width: 200px !important;
+    padding-top: 0 !important;
+    position: relative !important;
+    z-index: unset !important;
+    height: unset !important; 
+}
+.an-RSidebar .scroller-content{
+	width: auto !important;
+}
+.an-object-container{
+	width: 97%;
+}
+.an-head-details-vertical{
+	position: relative;
+	height: 700px;
+}
+.an-head-details-vertical .block{
+	width: 183px !important;
+	height: 153px !important;
+	background-color: rgb(28,37,47);
+}
+.an-head-details-vertical{
+	background-color: #202a34;
+}
+
+.an-head-details-scrollable{
+	min-height: 400px;
+	overflow-y: scroll;
+	height: 500px; 
+}
+.an-head-details-scrollable .head-title{
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+.an-head-details-vertical .block_img{
+	height: 100% !important;
+	width: auto !important;
+	max-width: unset !important; 
+}
+.an-main-img{
+	flex: 1;
+}
+.an-main-img > img {
+	min-width: 280px;
+}
+.an-main-img .addgame-btn{
+	float: unset !important;
+	color: rgba(255,255,255,0.8);
+}
+.an-btn-below-img{
+	text-align: center;
+	padding: 4px 0;
+	margin-top: 2%;
+}
+.an-align-center{
+	text-align: center;
+}
+.an-dna-conatiner{
+	font-family:"Lato Semibold","Lato",sans-serif;
+}
+.an-selected-block-vertical{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	color: #fff;
+}
+.an-selected-block-vertical .head-detail-block{
+	height: unset !important;
+}
+.an-input-number-text{
+	padding: 4px 0;
+}
+.an-selected-block-vertical .block{
+	width: 180px;
+}
+.an-selected-block-vertical> .an-align-center{
+	padding: 4px 0;
+	background-color: #202a34;
+}
 #content-wrapper{
 
 	padding-left: 21%;
