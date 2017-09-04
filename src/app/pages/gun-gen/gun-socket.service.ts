@@ -4,7 +4,7 @@ import {Socket} from 'ng2-socket-io';
 export class GunSocketService extends Socket {
 
   constructor() { 
-    super({url:"https://absentiagungen.tech/",options:{}})
+    super({url:"https://absentiagungen.tech",options:{}})
 
     
   }
