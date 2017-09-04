@@ -120,7 +120,7 @@
           <h3 style="margin-top: 10px" *ngIf="processedFiles">{{processedFiles.title}}</h3>
           <div class="dropdown pull-right">
             <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i>List</button>
+              <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i></button>
               <ul class="dropdown-menu" aria-labelledby="dropdownBasic1">
                 <li *ngFor="let gen of changeHistory;let i=index">
                   <a (click)="switchImage(gen.id)"> {{gen.title}} </a>
@@ -146,6 +146,7 @@
                 </div>
 
           </div>
+
           <div class="an-selected-block-vertical">
             <div class="an-align-center">
                 Input 1
@@ -188,19 +189,41 @@
             </div>
           </div>
           
-          <div class="object-container-dna-btm">
-            <div class="addgame">
+          <div class="object-container-dna-btm ">
+            <div class=" an-display-flex ">
               <!-- <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)"> Add to game </a>
               <a style="cursor: not-allowed" class="addgame-btn" style="margin-left: 10px" (click)="exportFbx()"> Export fbx </a> -->
-              <div class="shuffle-btn"> <!-- Change Button color to Primary -->
+              <div class="shuffle-btn flex-1"> <!-- Change Button color to Primary -->
                 <a  (click)="generateImage()"> Merge </a>
-              </div>              
+              </div>
+              <div ngbDropdown class="an-ham-button-div d-inline-block">
+                <button class="btn btn-outline-primary list-btn" id="dropdownBasic2" ngbDropdownToggle><i class="fa fa-list"></i></button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownBasic2">
+                <li *ngFor="let gen of changeHistory;let i=index">
+                  <a (click)="switchImage(gen.id)"> {{gen.title}} </a>
+                </li>
+                </ul>
+              </div>            
 
               <!-- <a href="javascript:void(0)" class="addgame-btn pull-right">Add to library</a> -->
 
             </div>
           </div>
+
         </div>
+                <div class="head-detail-block">
+                  <div class="full-btn left" style="display:inline-block;">              <!-- Inserted Block. Need to cover in div to assign ng-class -->
+                    <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
+                  </div>
+                  <div class="scroller-content" *ngIf="processedFiles">
+                    <div  *ngFor="let pFile of processedFiles.files;let i=index" style="display:inline-block;" (click)="imageSelected(i)" [class]="pFile.file == selectedImage.file ? 'block active' : 'block'">
+                      <img  class="block_img padding-top-40px" src={{pFile.file}}/>
+                    </div>
+                  </div>
+                  <div class="full-btn right" style="display:inline-block;">
+                    <a (click)="scrollRight()"> <i class="fa fa-caret-right"> </i> </a>
+                  </div>
+                </div>                                                                  <!-- Inserted Block. Decide whether to keep horizontal scroll arrows at ends-->
       </div>
       <div class="shuffle-btn" style="display: none" >
         <a id="genButton" (click)="saveRanges()"> Generate </a>

@@ -210,7 +210,8 @@ position: absolute;
 }
 .an-head-details-vertical{
 	position: relative;
-	height: 700px;
+	height: calc( 100vh - 90px);
+	min-height: 500px;
 }
 .an-head-details-vertical .block{
 	width: 183px !important;
@@ -224,7 +225,7 @@ position: absolute;
 .an-head-details-scrollable{
 	min-height: 400px;
 	overflow-y: scroll;
-	height: 500px; 
+	height: calc( 100vh - 330px); 
 }
 .an-head-details-scrollable .head-title{
 	position: absolute;
@@ -282,8 +283,12 @@ position: absolute;
 	width:102%;
 	
 }
-
-
+.flex-1{
+	flex: 1;
+}
+.an-ham-button-div{
+	width: 80px;
+}
 .object-container-dna .block-object{
 
 	min-height:250px;

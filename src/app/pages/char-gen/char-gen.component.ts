@@ -678,7 +678,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
 
   ngAfterViewInit(){}
 
-  @HostListener('document:keydown', ['$event'])
+  /*@HostListener('document:keydown', ['$event'])
   changeImage(event: KeyboardEvent) {
     if(this.processedFiles){
       if(event.keyCode == 38) {
@@ -702,7 +702,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
         this.input1Image = this.selectedImage;
       }
     }
-  }
+  }*/
 
   addToGame(fbxfile, imageFile) {
 
