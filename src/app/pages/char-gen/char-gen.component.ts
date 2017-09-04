@@ -15,10 +15,13 @@ import { GlobalRef } from '../../global-ref';
 import {  AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+
+
 
 declare var $: any;
 declare var jQuery: any;
-  
+
 @Component({
   selector: 'app-char-gen',
   templateUrl: './char-gen.component.html',
@@ -50,7 +53,7 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
   public inputUrl = "assets/data/input.json";
   public OutputUrl = "assets/data/output.json";
   private FileUploadId: any;
-  private processedFiles: GeneratedImages;
+  private processedFiles: GeneratedImages = new GeneratedImages("","","",["","","","",""]);
   private selectedImage: any = { file:"assets/images/object-2.png" };
   private input1Image: any = { file:"" };
   private bodyParts: any = [];

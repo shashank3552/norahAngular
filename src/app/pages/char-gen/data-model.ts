@@ -18,8 +18,8 @@ export class GeneratedImages {
         return this.active;
     }
 
-    public setActive(active:boolean=true) {
-        this.active=active;
+    public setActive(active: boolean = true) {
+        this.active = active;
     }
 }
 
