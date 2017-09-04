@@ -15,7 +15,8 @@ declare var ValidateInputsThenApply: any;
   templateUrl: './gun-gen.component.html',
   styleUrls: ['./gun-gen.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers:[ GunSocketService ]
+  providers:[ GunSocketService ],
+  
 })
 export class GunGenComponent implements AfterViewInit {
 
@@ -152,6 +153,7 @@ export class GunGenComponent implements AfterViewInit {
             .child(`${item.name}`)
             .getDownloadURL()
             .then(data => {item["imgsrc"]=data;
+            item["active"]=false
                 //console.log(item);
                 return item;
           }).catch(e=>console.log(e))
@@ -304,17 +306,63 @@ export class GunGenComponent implements AfterViewInit {
       event.currentTarget.classList.toggle('active-img');
     }
 
+    event.currentTarget.classList.toggle('active-img');
+    
+    //if ( images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].checked) {
+    //event.currentTarget.classList.toggle('active-img');
+    tera["active"]=!tera["active"];
+   
+    
+
+    
     const images2 = document.getElementById('gen2-images').getElementsByClassName('item');
     const selectedCount = 0;
     this.showDeleteSelected = false;
-    this.selectedImgs=[]
-    for ( let i = 0; i < images2.length; i++ ) {
+    let gunExist=this.selectedImgs.find(x=>x.$key==tera.$key);
+    this.userTerrains=this.userTerrains.map(x=>{ 
+        if(x.$key==tera.$key)
+          return tera 
+        else
+        return x 
+  })
+    console.log(gunExist);
+    if(gunExist)
+      this.selectedImgs=this.selectedImgs.filter(x=>x.$key!=tera.$key);
+    else
+      this.selectedImgs.push(tera)
+    console.log(this.selectedImgs);
+     for ( let i = 0; i < images2.length; i++ ) {
       if ( images2[i].getElementsByTagName('input')[0] &&
         images2[i].getElementsByTagName('input')[0].type === 'checkbox' &&
         images2[i].getElementsByTagName('input')[0].checked ) {
         this.showDeleteSelected = false;
-        this.selectedImgs.push(tera);
+    //    this.selectedImgs.push(this.userTerrains[i]);
       }
+    }
+    console.log(this.selectedImgs);
+//    event.stopPropagation()
+  }
+
+  stopEvent(event)
+{  event.currentTarget["checked"]=false;
+event.stopPropagation();
+
+}
+  clickTest(event,ter){
+
+    console.log("Tile Clicked");
+
+    console.log(event);
+    const images = document.getElementsByClassName('item');
+    //for (let i = 0; i < images.length; i++) {
+    //if ( images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].checked) {
+    if ( event.currentTarget.getElementsByTagName('input')[0] && event.currentTarget.getElementsByTagName('input')[0].checked ) {
+      const test = event.currentTarget.getElementsByClassName('fa-check-circle-o');
+      test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
+      event.currentTarget.getElementsByTagName('input')[0].checked = true;
+      //images[i].classList.toggle('active-img');
+      event.currentTarget.classList.toggle('active-img');
+      
     }
 
   }
