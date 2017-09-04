@@ -14,7 +14,7 @@ import { AuthModule } from './pages/auth/auth.module';
 import { DialogService } from './pages/auth/dialog/dialog.component';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
-import { CharGenComponent } from './pages/char-gen/char-gen.component';
+import { CharGenComponent } from './pages/char-gen/char-gen.component'; 
 import { ExportGameComponent } from './pages/export-game/export-game.component';
 import { GameMakerComponent } from './pages/game-maker/game-maker.component';
 import { GunInterpModule } from './pages/gun-gen/gun-gen.module';
@@ -28,6 +28,13 @@ import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 import { SeoService } from './seo.service';
 import { GameMakerStartComponent } from './pages/game-maker-start/game-maker-start.component';
+import { TutorialComponent } from './pages/tutorial/tutorial.component';
+import { BlogComponent } from './pages/blog/blog.component';
+import { Blog1Component } from './pages/blog1/blog1.component';
+import { Blog2Component } from './pages/blog2/blog2.component';
+import { Blog3Component } from './pages/blog3/blog3.component';
+
+
 
 @NgModule({
   declarations: [
@@ -39,7 +46,12 @@ import { GameMakerStartComponent } from './pages/game-maker-start/game-maker-sta
     CharGenComponent,
     GameMakerComponent,
     SniperComponent,
-    GameMakerStartComponent
+    GameMakerStartComponent,
+    TutorialComponent,
+    BlogComponent,
+    Blog1Component,
+    Blog3Component,
+    Blog2Component
     ],
   imports: [
     BrowserModule,
