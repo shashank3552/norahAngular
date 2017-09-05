@@ -28,7 +28,7 @@ const appRoutes: Routes = [
     component: AboutComponent
   },
   {
-    path: 'tutorial',
+    path: 'tutorials',
     component: TutorialComponent
   },
   {
@@ -36,13 +36,13 @@ const appRoutes: Routes = [
     component: BlogComponent
   },
   {
-    path: 'blog/A Generative AI Produces a Hallucinatory Footage',
+    path: 'A Generative AI Produces a Hallucinatory Footage.html',
     component:Blog1Component
   },{
-    path: 'blog/A.I. teams up with Game Developers',
+    path: 'A.I. teams up with Game Developers.html',
     component:Blog2Component
   },{
-    path: 'blog/What is Unsupervised Learning?',
+    path: 'What is Unsupervised Learning.html',
     component:Blog3Component
   },
   {

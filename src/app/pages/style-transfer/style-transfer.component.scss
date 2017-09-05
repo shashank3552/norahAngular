@@ -210,10 +210,10 @@ input[type=range]::-ms-thumb {
         right: 0 !important;
     }
     .carousel-control.right {
-        position:relative !important;
+        /*position:relative !important;*/
         top: 50% !important;
         background: none !important;
-        right: 0 !important;
+        /*right: 0 !important;*/
         top: 0 !important;
     }
     .carousel-arrow .left-arrow {
@@ -242,6 +242,14 @@ input[type=range]::-ms-thumb {
     .col-md-8.left_animation_V video {
         width: 100% !important;
     }
+    .checkbox-center {
+   display: inline-block;
+   width: 100%;
+   /* margin: 0 auto; */
+   /* text-align: center; */
+   float: left;
+   margin: 0 0 20px 0;
+}
     .carousel-control.left {
         position:relative !important;
         top: 100% !important;
@@ -270,9 +278,15 @@ input[type=range]::-ms-thumb {
     .carousel-arrow .right-arrow {
         top: 0px !important;
     }
+    .col-md-4.output-window canvas {
+	width:100% !important;
+}
 } 
 
 @media (min-width: 768px) and (max-width: 991px) {
+.col-md-4.output-window canvas {
+	width:100% !important;
+}
     .col-md-8.left_animation_V video {
         width: 100% !important;
     } 
@@ -283,3 +297,74 @@ input[type=range]::-ms-thumb {
         top: 0px !important;
     }    
 }
+
+.checkbox-center {
+   display: inline-block;
+   width: 43%;
+   margin: 0 auto;
+   text-align: center;
+}
+.checkbox-center .col-5 {
+   display: inline-block;
+}
+@media (min-width: 992px) and (max-width: 1119px) {
+	.carousel-arrow .left-arrow {
+		top:70px;
+	}
+	.carousel-arrow .right-arrow{
+	    float: right;
+	    width: auto;
+	    margin: 0 17px 0 0;
+	    position: relative;
+	    top: 70px;
+	}
+	.col-md-4.output-window canvas {
+	width:100% !important;
+}
+}
+
+@media (min-width: 1000px) and (max-width: 1200px) {
+.col-md-4.output-window canvas {
+	width:100% !important;
+}
+.checkbox-center {
+   display: inline-block;
+   width: 100%;
+   /* margin: 0 auto; */
+   /* text-align: center; */
+   float: left;
+   margin: 0 0 20px 0;
+}
+.row.gameContainerVVideo {
+	display:none;
+}
+}
+
+.row.gameContainerVVideo {
+	display:none;
+}
+
+h2#left_anim_title {
+    padding: 0 !important;
+    margin-left: 0 !important;
+    left: 0;
+    width: 95%;
+}
+
+/*.col-md-8.left_animation_V {
+    margin: 0 0 0 0;
+    position: relative;
+    top: 53%;
+    left: 10%;
+}*/
+
+.left_animation_mp43 video {
+    width: 100%;
+}
+
+.col-md-4.output-window canvas {
+	width:100% !important;
+}
+
+
+	

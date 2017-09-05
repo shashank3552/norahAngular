@@ -1,3 +1,4 @@
+@import '~perfect-scrollbar/dist/css/perfect-scrollbar.min.css';
 .collapse {
 	display: none
 }
@@ -195,18 +196,134 @@ position: absolute;
 	width:20%;
 	z-index: 10;
 }
+.an-RSidebar{
+    width: 200px !important;
+    padding-top: 0 !important;
+    position: relative !important;
+    z-index: unset !important;
+    height: unset !important; 
+}
+.an-RSidebar .scroller-content{
+	width: auto !important;
+}
+.an-object-container{
+	width: 97%;
+}
+.an-head-details-vertical{
+	position: relative;
+	height: calc( 100vh - 90px);
+	min-height: 500px;
+}
+.an-head-details-vertical .block{
+	width: 183px !important;
+	height: 153px !important;
+	background-color: rgb(28,37,47);
+}
+.an-head-details-vertical{
+	background-color: #202a34;
+}
+
+.an-head-details-scrollable{
+	min-height: 400px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: calc( 100vh - 330px); 
+}
+.an-head-details-scrollable .head-title{
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+.an-head-details-vertical .block_img{
+	height: 100% !important;
+	width: auto !important;
+	max-width: unset !important; 
+}
+.an-main-img{
+	flex: 1;
+}
+.an-main-img > img {
+	min-width: 280px;
+}
+.an-main-img .addgame-btn{
+	float: unset !important;
+	color: rgba(255,255,255,0.8);
+}
+.an-btn-below-img{
+	text-align: center;
+	padding: 4px 0;
+	margin-top: 2%;
+}
+.an-align-center{
+	text-align: center;
+}
+.an-dna-conatiner{
+	font-family:"Lato Semibold","Lato",sans-serif;
+}
+.an-selected-block-vertical{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	color: #fff;
+}
+.an-selected-block-vertical .head-detail-block{
+	height: unset !important;
+}
+.an-input-number-text{
+	padding: 4px 0;
+}
+.an-selected-block-vertical .block{
+	width: 180px;
+}
+.an-selected-block-vertical> .an-align-center{
+	padding: 4px 0;
+	background-color: #202a34;
+}
 #content-wrapper{
 
 	padding-left: 21%;
 	width:102%;
 	
 }
-
-
+.flex-1{
+	flex: 1;
+}
+.an-ham-button-div{
+	width: 80px;
+	top: 13px;
+}
 .object-container-dna .block-object{
 
 	min-height:250px;
 }
+.an-head-details-horizontal{
+
+}
+.an-head-details-horizontal .head-detail-block{
+	overflow-y: hidden; 
+	height: 160px;
+}
+.an-head-details-horizontal .scroller-content{
+	max-width: unset;
+	width: 100%;
+}
+.an-head-details-horizontal .block{
+    width: 183px !important;
+    height: 153px !important;
+    background-color: rgb(28,37,47);
+}
+
+.an-dna-height-strecher .block-object> .an-display-flex{
+	height: calc( 100vh - 240px);
+}
+
+.an-dna-conatiner .block-object> .an-display-flex{
+    justify-items: center;
+    align-items: center;
+}
+
+
+
 
 @media screen and (max-width: 720px) {
  
@@ -262,7 +379,7 @@ width:25%;
 
 #genButton{
 
-
+	cursor: pointer;
 	margin-right: 10%
 }
 :host /deep/ image-zoom-container{
@@ -282,4 +399,69 @@ width:25%;
 :host /deep/ nouislider.eSlider .noUi-connect:nth-child(3) {
    /* background: green !important
     ;*/
+}
+
+/* Scroll Bar */
+
+
+#style-5::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	    background-color: rgba(0,0,0,0.2);
+}
+
+#style-5::-webkit-scrollbar{
+	width: 6px;
+
+	display: unset !important;
+	-webkit-appearance: unset !important;
+}
+
+#style-5::-webkit-scrollbar-thumb{
+	background-color: #0ae;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%,
+	                   color-stop(.5, rgba(255, 255, 255, .2)),
+					   color-stop(.5, transparent), to(transparent));
+}
+
+/* Scroll Bar */
+
+.an-head-details-vertical ul.dropdown-menu {
+	top: unset !important;
+	bottom: unset !important;
+    left: -70px ;
+    width: 126px;
+    overflow-y: scroll;
+    -ms-overflow-style: scrollbar;
+    overflow-x: hidden;
+    max-height: 200px;
+}
+
+.an-ham-button-div ul.dropdown-menu {
+    background: #131a23;
+    position: absolute;
+    top: auto;
+    left: -45px;
+    width: 126px;
+    overflow-y: scroll;
+    -ms-overflow-style: scrollbar;
+    overflow-x: hidden;
+    max-height: 200px;
+    bottom: 100%;
+ }
+ .an-ham-button-div ul.dropdown-menu li a {
+    padding: 8px 16px;
+    color: #fff;
+    font-size: 14px;
+ }
+ .an-ham-button-div .btn{
+ 	border: 1px solid #3d4356;
+ }
+ .an-ham-button-div .btn>i{
+ 	padding: 0 4px;
+ }
+
+ .an-ham-button-div ul.dropdown-menu li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #008aff;
 }

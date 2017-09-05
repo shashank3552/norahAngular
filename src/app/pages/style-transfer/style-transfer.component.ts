@@ -16,6 +16,7 @@ export class StyleTransferComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+
     let gameInstance;
     const wnd = this.global.nativeGlobal;
     const animationArray = [];
@@ -442,6 +443,7 @@ export class StyleTransferComponent implements AfterViewInit {
           show: true
         });
       }
+      
     }
   }
 
