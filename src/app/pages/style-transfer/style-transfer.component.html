@@ -10,10 +10,7 @@
 
                         <h2 class="col-md-8" id="left_anim_title" style="color:#84838c;font-size:15px;text-align:center;margin-left:25px;">Input 1
                         </h2>
-
-                        <div class="row">
-                            <h2 style="color:#84838c;font-size:15px;text-align:center;padding:5px 0 0 0;"></h2>
-                        </div>
+                        
                         <div class="row">
                             <div class="carousel-arrow">
                             <div class="left-arrow">
@@ -34,7 +31,6 @@
                                     <source id="left_animation_mp4_src" src="" type="video/mp4"/>
                                   </video>  
                   
-                                    <!--<img src="img/plus_round.png" style="position:absolute;top:5px;left:19px;">-->
                                 </div>
                                 <h2 style="color:#84838c;font-size:15px;" id="left_anim_duration"></h2>
                             </div>  
@@ -45,12 +41,14 @@
                             style="display:none;">
                     </div>
                     <div class="col-md-4 output-window">
-                        <h2 style="color:#84838c;font-size:15px;text-align:center;padding:0px 0 0 0;">Output Window</h2>
-                        <div id="gameContainer2" class="col-md-10">
-                        <div _ngcontent-hpr-64="" class="row">
+                        <div class="col-md-10">
+                            <h2 style="color:#84838c;font-size:15px;text-align:center;padding:0px 0 0 0;">Output Window</h2>
+                        </div>
+                        <div  id="gameContainer2" class="col-md-10">
+                        <div _ngcontent-hpr-64="" class="row gameContainerVVideo">
                             <h2 _ngcontent-hpr-64="" style="color:#84838c;font-size:15px;text-align:center;padding:5px 0 0 0;"></h2>
                             </div>
-                            <div id="gameContainer" style="height: 250px"></div>
+                            <div id="gameContainer" style="height: 250px; width: 100%;"></div>
                             <div class="enter-name">
                                 <div class="row">
                                     <div class="col-md-10" style="padding:0;margin:0;padding-left:17px;">
@@ -94,7 +92,6 @@
                                     <source id="right_animation_mp4_src" src="" type="video/mp4"/>
                                 </video>
                   
-                                    <!--<img src="img/plus_round.png" style="position:absolute;top:5px;left:19px;">-->
                                 </div>
                                 <h2 _ngcontent-ssq-64="" id="right_anim_duration" style="color:#84838c;font-size:15px;"></h2>
                             </div>
@@ -150,7 +147,19 @@
                         <div class="col-md-3">
                             <h3 style="font-size:18px;color:#fefefe;margin-top:10px;">Blending Options:</h3>
                         </div>
-                        <div class="col-md-1">
+                        <div class="checkbox-center">
+                       <div _ngcontent-mjr-64="" class="col-5">
+                           <div _ngcontent-mjr-64="" class="checkbox">
+                               <label _ngcontent-mjr-64=""><input _ngcontent-mjr-64="" autocomplete="off" checked="checked" id="loop" name="radio" onclick="handleClick(this);" style="height:19px; width:35px; " type="radio" value="">Loop</label>
+                           </div>
+                       </div>
+                       <div _ngcontent-mjr-64="" class="col-5">
+                           <div _ngcontent-mjr-64="" class="checkbox">
+                               <label _ngcontent-mjr-64=""><input _ngcontent-mjr-64="" autocomplete="off" id="timestretch" name="radio" onclick="handleClick(this);" style="height:19px; width:35px; " type="radio" value="">Time stretch</label>
+                           </div>
+                       </div>
+                       </div>
+                        <!-- <div class="col-md-1">
                             <div class="checkbox">
                                 <label><input type="radio" autocomplete="off" value="" checked="checked" onclick='handleClick(this);'
                               name="radio" id = "loop" style="height:19px; width:35px; ">Loop</label>
@@ -161,7 +170,7 @@
                                 <label><input type="radio" autocomplete="off" value="" onclick='handleClick(this);'
                               name="radio" style="height:19px; width:35px; " id="timestretch">Time stretch</label>
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <!-- <div class="col-md-4">
@@ -248,4 +257,5 @@
             </div>
         </div>
     </div>
+    
 </div>

@@ -57,11 +57,15 @@
         //      g.src = u + 'piwik.js';
         //      s.parentNode.insertBefore(g, s);
         //    })();
+        function resizeScreen() {
+            $('canvas').css('width', document.getElementById('gameContainer').offsetWidth);
+            $('canvas').css('height', document.getElementById('gameContainer').offsetHeight);
+        }
     </script>
     <noscript><p><img src="//piwik.norah.ai/piwik.php?idsite=1&rec=1" style="border:0;" alt="" /></p></noscript>
 </head>
 
-<body>
+<body onresize="resizeScreen()">
     <app-root>Loading...</app-root>
 
     <script type="text/javascript" src="inline.bundle.js"></script>
