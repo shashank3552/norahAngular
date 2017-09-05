@@ -144,11 +144,12 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1" style="margin-top:10px;">
                     <div class="blending_options">
-                        <div class="col-md-3">
+                        
+                        <div class="checkbox-center">
+                        <div class="checkbox-title">
                             <h3 style="font-size:18px;color:#fefefe;margin-top:10px;">Blending Options:</h3>
                         </div>
-                        <div class="checkbox-center">
-                       <div _ngcontent-mjr-64="" class="col-5">
+                      <!--  <div _ngcontent-mjr-64="" class="col-5">
                            <div _ngcontent-mjr-64="" class="checkbox">
                                <label _ngcontent-mjr-64=""><input _ngcontent-mjr-64="" autocomplete="off" checked="checked" id="loop" name="radio" onclick="handleClick(this);" style="height:19px; width:35px; " type="radio" value="">Loop</label>
                            </div>
@@ -157,7 +158,26 @@
                            <div _ngcontent-mjr-64="" class="checkbox">
                                <label _ngcontent-mjr-64=""><input _ngcontent-mjr-64="" autocomplete="off" id="timestretch" name="radio" onclick="handleClick(this);" style="height:19px; width:35px; " type="radio" value="">Time stretch</label>
                            </div>
-                       </div>
+                       </div> -->
+                       <div class="f-radio">
+                       <ul>
+                              <li>
+                                <input type="radio" id="f-option" name="selector">
+                                <label for="f-option">Loop Stretch</label>
+                                
+                                <div class="check"></div>
+                              </li>
+
+                              <li>
+                                <input type="radio" id="f-option" name="selector">
+                                <label for="f-option">Time Stretch</label>
+                                
+                                <div class="check"></div>
+                              </li>
+                              
+                             
+                        </ul>
+                        </div>
                        </div>
                         <!-- <div class="col-md-1">
                             <div class="checkbox">
@@ -196,9 +216,9 @@
     </div>
     <br>
 
-    <div class="blending_control">
+    <div class="blending_control" >
         <div style="padding:0;">
-            <div class="col-md-9 col-md-offset-1">
+            <div class="col-md-9 col-md-offset-1" id="comments">
                 <h3 style="font-size:18px;color:#fefefe;margin-top:-20px;margin-left:2px;">Blending Control:</h3>
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Head</label>
