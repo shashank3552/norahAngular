@@ -120,7 +120,7 @@
           <h3 style="margin-top: 10px" *ngIf="processedFiles">{{processedFiles.title}}</h3>
           <div class="dropdown pull-right">
             <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i>List</button>
+              <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i></button>
               <ul class="dropdown-menu" aria-labelledby="dropdownBasic1">
                 <li *ngFor="let gen of changeHistory;let i=index">
                   <a (click)="switchImage(gen.id)"> {{gen.title}} </a>
@@ -129,13 +129,13 @@
             </div>
           </div>
         </div>
-        <div class="an-head-details-scrollable">
+        <perfect-scrollbar class="an-head-details-scrollable" [config]="config">
 
-                <div class="head-detail-block">
+                <div class="head-detail-block content">
                   <div class="full-btn left" style="display:none">
                     <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
                   </div>
-                  <div class="scroller-content" *ngIf="processedFiles">
+                  <div class="scroller-content"  *ngIf="processedFiles">  <!-- ScrollBar Code -->
                     <div  *ngFor="let pFile of processedFiles.files;let i=index" (click)="imageSelected(i)" [class]="pFile.file == selectedImage.file ? 'block active' : 'block'">
                       <img  class="block_img padding-top-40px" src={{pFile.file}}/>
                     </div>
@@ -145,11 +145,11 @@
                   </div>
                 </div>
 
-          </div>
+          </perfect-scrollbar>
+
           <div class="an-selected-block-vertical">
             <div class="an-align-center">
                 Input 1
-
             </div>
             <div class="head-detail-block">
               <div class="block">
@@ -159,7 +159,7 @@
           </div>
         </div>
 
-      <div class="object-container-dna an-dna-conatiner">
+      <div class="object-container-dna an-dna-conatiner" [ngClass]="{'an-dna-height-strecher': processedFiles.id === '' }" >
         <div class="dna-code-title">
           <h2> DNA CODE </h2>
         </div>
@@ -170,7 +170,7 @@
           <span class="helper"></span>
           <div class="an-display-flex">
             <div class="an-main-img">
-                <img id="dnaCode_main_img"  [imageZoom]=selectedImage.file  src="{{selectedImage.file}}" appZooom >
+                <img id="dnaCode_main_img"  src="{{selectedImage.file}}" >
               
               <div class="an-btn-below-img clearfix">
                 <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)"> Add to game </a>
@@ -179,7 +179,7 @@
               
             </div>
             <div class="an-main-img" *ngIf="selectedBodyPart">
-                <img id="dnaCode_main_img"  [imageZoom]=selectedBodyPart.file  src="{{selectedBodyPart.file}}" appZooom >
+                <img id="dnaCode_main_img"  src="{{selectedBodyPart.file}}"  >
               
               <div class="an-btn-below-img clearfix">
                 <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)"> Add to game </a>
@@ -188,19 +188,44 @@
             </div>
           </div>
           
-          <div class="object-container-dna-btm">
-            <div class="addgame">
+          <div class="object-container-dna-btm ">
+            <div class=" an-display-flex ">
               <!-- <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)"> Add to game </a>
               <a style="cursor: not-allowed" class="addgame-btn" style="margin-left: 10px" (click)="exportFbx()"> Export fbx </a> -->
-              <div class="shuffle-btn"> <!-- Change Button color to Primary -->
+              <div class="shuffle-btn flex-1"> <!-- Change Button color to Primary -->
                 <a  (click)="generateImage()"> Merge </a>
-              </div>              
+              </div>
+              <div ngbDropdown class="an-ham-button-div">
+                <button class="btn btn-outline-primary list-btn" id="dropdownBasic2" ngbDropdownToggle><i class="fa fa-list"></i></button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownBasic2">
+                <li *ngFor="let gen of changeHistory;let i=index">
+                  <a (click)="switchImage(gen.id)"> {{gen.title}} </a>
+                </li>
+                </ul>
+              </div>            
 
               <!-- <a href="javascript:void(0)" class="addgame-btn pull-right">Add to library</a> -->
 
             </div>
           </div>
+
         </div>
+        <div class="an-head-details-horizontal" *ngIf="processedFiles.id !== ''">
+          <div class="head-detail-block ">
+              <div class="full-btn left" style="display:inline-block;">              <!-- Inserted Block. Need to cover in div to assign ng-class -->
+                <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
+              </div>
+              <div class="scroller-content" *ngIf="processedFiles">
+                <div  *ngFor="let pFile of processedFiles.files;let i=index" style="display:inline-block;" (click)="imageSelected(i)" [class]="pFile.file == selectedImage.file ? 'block active' : 'block'">
+                  <img  class="block_img padding-top-40px" src={{pFile.file}}/>
+                </div>
+              </div>
+              <div class="full-btn right" style="display:inline-block;">
+                <a (click)="scrollRight()"> <i class="fa fa-caret-right"> </i> </a>
+              </div>
+            </div>
+        </div>
+                                                                                  <!-- Inserted Block. Decide whether to keep horizontal scroll arrows at ends-->
       </div>
       <div class="shuffle-btn" style="display: none" >
         <a id="genButton" (click)="saveRanges()"> Generate </a>
@@ -216,8 +241,8 @@
         
           <div class="head-detail an-head-details-vertical clearfix">
             <div class="head-title "><h3> Repository </h3></div>
-            <div class="an-head-details-scrollable">
-              <div class="head-detail-block">
+            <perfect-scrollbar class="an-head-details-scrollable" [config]="config">
+              <div class="head-detail-block content">
                 <div class="scroller-content" *ngFor="let bodyPart of bodyParts.files;let i=index">
                   <div class="" (click)="bodyPartSelected(i)" >
                     <div [class]="selectedBodyPart && selectedBodyPart.file == bodyPart.file ? 'block active' : 'block'">
@@ -229,7 +254,7 @@
                 </div>
 
               </div>
-            </div>
+            </perfect-scrollbar>
             <div class="an-selected-block-vertical clearfix">
               <div class="an-align-center">
                   Input 2

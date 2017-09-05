@@ -33,7 +33,11 @@ import { BlogComponent } from './pages/blog/blog.component';
 import { Blog1Component } from './pages/blog1/blog1.component';
 import { Blog2Component } from './pages/blog2/blog2.component';
 import { Blog3Component } from './pages/blog3/blog3.component';
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+    suppressScrollX: true,
+};
 
 
 @NgModule({
@@ -67,7 +71,8 @@ import { Blog3Component } from './pages/blog3/blog3.component';
     SocketIoModule,
     GunInterpModule,
     ImageZoomModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG)
   ],
   providers: [
     { provide: GlobalRef, useClass: BrowserGlobalRef },
