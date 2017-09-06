@@ -1,5 +1,5 @@
 <div class="">
-
+ 
     <div class="merger_container_animation">
 
         <div class="">
@@ -161,16 +161,16 @@
                        </div> -->
                        <div class="f-radio">
                        <ul>
-                              <li>
-                                <input type="radio" id="f-option" name="selector">
-                                <label for="f-option">Loop Stretch</label>
+                              <li class="">
+                                <input type="radio" id="loop" name="radio" checked="checked" onclick="handleClick(this);" >
+                                <label  for="loop">Loop Stretch</label>
                                 
                                 <div class="check"></div>
                               </li>
 
-                              <li>
-                                <input type="radio" id="f-option" name="selector">
-                                <label for="f-option">Time Stretch</label>
+                              <li class="">
+                                <input  type="radio" id="timestretch" name="radio" onclick="handleClick(this);">
+                                <label for="timestretch">Time Stretch</label>
                                 
                                 <div class="check"></div>
                               </li>
@@ -215,67 +215,78 @@
         </div>
     </div>
     <br>
+<!--   <perfect-scrollbar class="an-head-details-scrollable" >
 
-    <div class="blending_control" >
+                <div class="head-detail-block content">
+                 
+                </div>
+
+          </perfect-scrollbar> -->
+    <div class="blending_control">
         <div style="padding:0;">
-            <div class="col-md-9 col-md-offset-1" id="comments">
+        
+            <div class="col-md-9 col-md-offset-1" id="comments" style="">
                 <h3 style="font-size:18px;color:#fefefe;margin-top:-20px;margin-left:2px;">Blending Control:</h3>
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Head</label>
                     <div class="range-slider">
-                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Head">
+                        <input style="padding-left:0px;width:80.33%;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Head">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Torso</label>
                     <div class="range-slider">
-                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Trso">
+                        <input style="padding-left:0px;width:80.33%;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Trso">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Left Arm</label>
                     <div class="range-slider">
-                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="ArmL">
+                        <input style="padding-left:0px;width:80.33%;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="ArmL">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Right Arm</label>
                     <div class="range-slider">
-                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="ArmR">
+                        <input style="padding-left:0px;width:80.33%;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="ArmR">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Left Leg</label>
                     <div class="range-slider">
-                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="LegL">
+                        <input style="padding-left:0px;width:80.33%;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="LegL">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Right Leg</label>
                     <div class="range-slider">
-                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="LegR">
+                        <input style="padding-left:0px;width:80.33%;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="LegR">
                     </div>
                 </div>
 
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Fingers</label>
                     <div class="range-slider">
-                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Fing">
+                        <input style="padding-left:0px;width:80.33%;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0" max="100" name="Fing">
                     </div>
                 </div>
                 <div class="row blending_control_block">
                     <label class="col-xs-2">Root</label>
                     <div class="range-slider">
-                        <input style="padding-left:0px;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0"  max="100"  name="Root" [(ngModel)]="root" >
+                        <input style="padding-left:0px;width:80.33%;" class="col-xs-10 range-slider__range" autocomplete="off" type="range" value="0" min="0"  max="100"  name="Root" [(ngModel)]="root" >
                     </div>
                 </div>
             </div>
+           
         </div>
     </div>
     
 </div>
+<style>
+
+</style>
