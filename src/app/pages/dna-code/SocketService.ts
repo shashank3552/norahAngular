@@ -4,10 +4,9 @@ import {Socket} from 'ng2-socket-io';
 export class SocketService extends Socket {
 
   constructor() { 
-    super({url:"https://absentiachargen.com",options:{}})
+ super({url:"https://absentiachargen.com",options:{}})
 
-    
-  }
+}
 
 
 

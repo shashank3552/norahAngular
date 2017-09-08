@@ -215,13 +215,13 @@ export class CharGenComponent implements OnInit,OnChanges,AfterViewInit {
       this.showMessag(data.msg);
     });
 
-    this.socket.on('bodyPart',(data) => {
+    this.socket.on('repo',(data) => {
       console.log("Body parts received..");;
       console.log(data);
       this.bodyParts = data;
     });
-
-    this.socket.emit("bodyPart",{part:"head"});
+//get repo
+    this.socket.emit("repo",{part:""});
     
     this.socket.on("exportModel",(data) => {
 
