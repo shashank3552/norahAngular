@@ -149,7 +149,7 @@ export class TerrainGenService {
 
   removeTerrainsFromLibray(key){
     const terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
-    terrainLibraryList.remove(key);
+    return terrainLibraryList.remove(key);
   }
   pushToGame(terrainType: string, terrainName: string, src?: string) {
     /*firebase.database()
