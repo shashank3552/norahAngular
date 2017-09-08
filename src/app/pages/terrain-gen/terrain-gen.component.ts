@@ -25,6 +25,7 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
   receivedData: any[] = [];
   showDeleteSelected = false;
   selectedImgs = [];
+  unityLoaded = false;
 
   constructor(private terrainService: TerrainGenService,
               private socket: HeightMapSocketService,
@@ -32,14 +33,14 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
               private http: Http,private ngZone:NgZone) {
                 window['angularComponentRef'] = {component: this, zone: ngZone};
                 // window['angularComponent'].zone.run(() => {
-                //   this.UnityLoadFinished(); 
+                //   this.UnityLoadFinished();
                 // });
   }
   ngOnInit() {
-  
+
   }
   ngOnDestroy() {
-  
+
   }
   ngAfterViewInit() {
     let gameInstance;
@@ -76,8 +77,9 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
     gameInstance = UnityLoader.instantiate("gameContainer", "assets/js/Unity/SimplifiedTerrain.json", {
       onProgress: UnityProgress
   });
-  wnd2.UnityLoadFinished = function () {
+  wnd2.UnityLoadFinished = () => {
     console.log("In callback");
+    this.unityLoaded = true;
   };
   //Send the urls to unity
   wnd2.UrlsToUnity = function (src) {
@@ -90,7 +92,7 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
   wnd2.UnityReset = function () {
     gameInstance.SendMessage("Terrain", "FromJS_Reset");
   }
- 
+
   }
 
   imageLoaded(event) {
@@ -105,9 +107,7 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
   nextTerGan() {
     this.terrainService.getTerrainsFromLibrary(this.activeLink)
       .subscribe(items => {
-        //console.log(items);
         const anims = items.map(file => {
-          //console.log(file.name);
           return firebase
             .storage()
             .ref(`terrainImages/${file.type}/`)
@@ -119,7 +119,7 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
     // this.isGenerate = !this.isGenerate;
     if ( this.isGenerate==false ) {
       this.isGenerate = true;
-    
+
   }
 }
   generationButton() {
@@ -132,7 +132,13 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
             .storage()
             .ref(`terrainImages/${file.type}/`)
             .child(`${file.name}`)
-            .getDownloadURL();
+            .getDownloadURL()
+            .then((url) => {
+              return {
+                url: url,
+                key: file.$key
+              };
+            });
         });
         this.userTerrains = Promise.all(anims);
       });
@@ -146,14 +152,27 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
   }
 
   deleteFromLibrary(terrain: string) {
-    this.terrainService.getTerrainsFromLibrary('mountains')
-      .subscribe(items => {
-        for ( const item of items ) {
-          if ( (item as any ).type === 'mountains' && (item as any).name === terrain.match(/%2F(.+)\?/)[1] ) {
-            this.terrainService.removeTerrainsFromLibray((item as any).$key);
-          }
-        }
-      });
+    this.terrainService.removeTerrainsFromLibray(terrain).then((res) => {
+      this.terrainService.getTerrainsFromLibrary(this.activeLink)
+        .subscribe(items => {
+          //console.log(items);
+          const anims = items.map(file => {
+            //console.log(file.name);
+            return firebase
+              .storage()
+              .ref(`terrainImages/${file.type}/`)
+              .child(`${file.name}`)
+              .getDownloadURL()
+              .then((url) => {
+                return {
+                  url: url,
+                  key: file.$key
+                };
+              });
+          });
+          this.userTerrains = Promise.all(anims);
+        });
+    });
   }
 
   addToLibraryFromGeneration(receivedImg) {
@@ -359,7 +378,7 @@ export class TerrainGenComponent implements OnInit, AfterViewInit {
         return res;
       });
   }
- 
+
   // openImage(src) {
   //
   //   $('#modalClose').click(function (e) {
